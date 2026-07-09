@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { Plus } from "lucide-react";
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
@@ -14,6 +16,8 @@ import {
   SportsFilters,
   SportsPagination,
 } from "@/features/sports";
+import { PageHeader } from "@/components/layout/page-header";
+import { Button } from "@/components/ui/button";
 import { sportListFiltersSchema } from "@/lib/validators/sports.schema";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -63,12 +67,20 @@ export default async function SportsPage({ searchParams }: SportsPageProps) {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight">Sports</h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Manage sports catalog, booking rules, and venue assignments
-        </p>
-      </div>
+      <PageHeader
+        title="Sports"
+        description="Manage sports catalog, booking rules, and venue assignments"
+        actions={
+          canManage ? (
+            <Button asChild>
+              <Link href="/sports/new">
+                <Plus className="h-4 w-4" />
+                Add sport
+              </Link>
+            </Button>
+          ) : undefined
+        }
+      />
 
       <Suspense fallback={<FiltersSkeleton />}>
         <SportsFilters categories={categories} canManage={canManage} />

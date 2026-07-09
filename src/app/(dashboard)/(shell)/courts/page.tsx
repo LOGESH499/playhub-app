@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { Plus } from "lucide-react";
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
@@ -14,6 +16,8 @@ import {
   CourtsFilters,
   CourtsPagination,
 } from "@/features/courts";
+import { PageHeader } from "@/components/layout/page-header";
+import { Button } from "@/components/ui/button";
 import { courtListFiltersSchema } from "@/lib/validators/court.schema";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -71,12 +75,20 @@ export default async function CourtsPage({ searchParams }: CourtsPageProps) {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight">Courts & Resources</h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Manage courts, lanes, turfs, and equipment across your venues
-        </p>
-      </div>
+      <PageHeader
+        title="Courts & Resources"
+        description="Manage courts, lanes, turfs, and equipment across your venues"
+        actions={
+          canManage ? (
+            <Button asChild>
+              <Link href="/courts/new">
+                <Plus className="h-4 w-4" />
+                Add court
+              </Link>
+            </Button>
+          ) : undefined
+        }
+      />
 
       <Suspense fallback={<FiltersSkeleton />}>
         <CourtsFilters venues={venues} canManage={canManage} />

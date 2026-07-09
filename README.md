@@ -140,10 +140,11 @@ Open [http://localhost:3000](http://localhost:3000).
 - Email verification gate + resend verification
 
 ### Module 4 — Dashboard
-- Sidebar + top nav responsive shell
-- Dark/light/system theme
-- KPI statistics, recent activity, calendar, notifications panel
+- Enterprise shell: collapsible sidebar, command palette (⌘K), breadcrumbs
+- Dark/light/system theme with semantic OKLCH design tokens (Geist)
+- KPI statistics, Recharts analytics, recent activity, calendar
 - Role-aware navigation and data queries
+- Sonner toast notifications
 
 ### Module 5 — Sports Management
 - Sports CRUD with categories, icons, images, booking rules
@@ -179,6 +180,16 @@ After `supabase db push`, run:
 ```bash
 supabase db execute -f scripts/verify-module-8.sql
 ```
+
+### Enterprise UI System
+
+Premium SaaS design layer (Linear / Stripe / Vercel inspired):
+
+- **Design tokens** — OKLCH semantic colors, sidebar tokens, shadows, Geist typography
+- **Shell** — Collapsible sidebar, command menu, breadcrumbs, sticky blurred topbar
+- **Components** — Shadcn primitives, TanStack DataTable, Recharts, Sonner, cmdk
+- **Pages** — Unified `PageHeader`, card hover states, polished auth & platform layouts
+- **Modules styled** — Dashboard, Sports, Venues, Courts, Slots (no business logic changes)
 
 ### Modules 5–7 — Migration verification
 

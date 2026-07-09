@@ -16,7 +16,7 @@ interface SportCardProps {
 
 export function SportCard({ sport, canManage }: SportCardProps) {
   return (
-    <Card className={cn("group relative overflow-hidden", sport.is_featured && "ring-1 ring-primary/30")}>
+    <Card className={cn("group relative overflow-hidden surface-card-hover", sport.is_featured && "ring-1 ring-primary/30")}>
       {sport.is_featured && (
         <div className="absolute right-3 top-3 z-10">
           <Badge variant="warning" className="gap-1">

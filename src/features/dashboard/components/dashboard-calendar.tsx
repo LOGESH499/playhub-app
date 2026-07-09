@@ -40,7 +40,7 @@ export function DashboardCalendar({ events }: DashboardCalendarProps) {
   const todayKey = new Date().toDateString();
 
   return (
-    <Card id="calendar" className="h-full scroll-mt-20">
+    <Card id="calendar" className="h-full scroll-mt-20 surface-card-hover">
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-base">
           <CalendarDays className="h-4 w-4" />

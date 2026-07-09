@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { Plus } from "lucide-react";
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
@@ -17,6 +19,8 @@ import {
   SlotsLiveShell,
   SlotsPagination,
 } from "@/features/slots";
+import { PageHeader } from "@/components/layout/page-header";
+import { Button } from "@/components/ui/button";
 import { slotListFiltersSchema } from "@/lib/validators/slot.schema";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -88,12 +92,25 @@ export default async function SlotsPage({ searchParams }: SlotsPageProps) {
       showBulkPanel={filters.view !== "list"}
     >
       <div className="space-y-6">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight">Slot Management</h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Schedule bookable slots, blocks, and recurring availability across courts
-          </p>
-        </div>
+        <PageHeader
+          title="Slot Management"
+          description="Schedule bookable slots, blocks, and recurring availability across courts"
+          actions={
+            canManage ? (
+              <div className="flex flex-wrap gap-2">
+                <Button asChild variant="outline">
+                  <Link href="/slots/templates">Templates</Link>
+                </Button>
+                <Button asChild>
+                  <Link href="/slots/new">
+                    <Plus className="h-4 w-4" />
+                    New slot
+                  </Link>
+                </Button>
+              </div>
+            ) : undefined
+          }
+        />
 
         <Suspense fallback={<FiltersSkeleton />}>
           <SlotsFilters

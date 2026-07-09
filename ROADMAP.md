@@ -162,6 +162,8 @@ Slot templates, recurring generation, calendar views (day/week/month/timeline), 
 
 **Verification:** `scripts/verify-module-8.sql`
 
+**UI:** Enterprise design system applied (collapsible sidebar, command palette, Recharts, DataTable, PageHeader)
+
 ---
 
 ## Module 9: Real-Time Booking

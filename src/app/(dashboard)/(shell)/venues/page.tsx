@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { Plus } from "lucide-react";
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
@@ -14,6 +16,8 @@ import {
   VenuesFilters,
   VenuesPagination,
 } from "@/features/venues";
+import { PageHeader } from "@/components/layout/page-header";
+import { Button } from "@/components/ui/button";
 import { venueListFiltersSchema } from "@/lib/validators/venue.schema";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -64,12 +68,20 @@ export default async function VenuesPage({ searchParams }: VenuesPageProps) {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight">Venues</h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Manage locations, hours, pricing, and media for your organization
-        </p>
-      </div>
+      <PageHeader
+        title="Venues"
+        description="Manage locations, hours, pricing, and media for your organization"
+        actions={
+          canManage ? (
+            <Button asChild>
+              <Link href="/venues/new">
+                <Plus className="h-4 w-4" />
+                Add venue
+              </Link>
+            </Button>
+          ) : undefined
+        }
+      />
 
       <Suspense fallback={<FiltersSkeleton />}>
         <VenuesFilters cities={cities} canManage={canManage} />

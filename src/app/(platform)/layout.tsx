@@ -6,6 +6,7 @@ import { canAccessPlatformAdmin } from "@/lib/auth/roles";
 import { SignOutButton } from "@/features/auth";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 export const dynamic = "force-dynamic";
 
@@ -29,20 +30,20 @@ export default async function PlatformLayout({
   }
 
   return (
-    <div className="min-h-screen bg-muted/20">
-      <header className="border-b bg-background">
-        <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
-          <Link href="/" className="flex items-center gap-2 font-bold">
-            <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
+    <div className="min-h-screen bg-muted/30">
+      <header className="sticky top-0 z-30 border-b border-border/60 bg-background/80 backdrop-blur-xl">
+        <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 lg:px-6">
+          <Link href="/" className="flex items-center gap-2.5 font-semibold tracking-tight">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-sm">
               <Trophy className="h-4 w-4" />
             </div>
             PLAYHUB
           </Link>
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Shield className="h-4 w-4 text-amber-600" />
+          <Badge variant="warning" className="gap-1.5">
+            <Shield className="h-3.5 w-3.5" />
             Platform Admin
-          </div>
-          <div className="flex items-center gap-3">
+          </Badge>
+          <div className="flex items-center gap-2">
             <ThemeToggle />
             <Button asChild variant="ghost" size="sm">
               <Link href="/dashboard">Dashboard</Link>
@@ -51,7 +52,7 @@ export default async function PlatformLayout({
           </div>
         </div>
       </header>
-      <main className="mx-auto max-w-6xl px-4 py-8">{children}</main>
+      <main className="mx-auto max-w-6xl px-4 py-8 lg:px-6">{children}</main>
     </div>
   );
 }

@@ -17,7 +17,7 @@ const TYPE_COLORS: Record<ActivityItem["type"], string> = {
 
 export function RecentActivity({ items }: RecentActivityProps) {
   return (
-    <Card className="h-full">
+    <Card className="h-full surface-card-hover">
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-base">
           <Activity className="h-4 w-4" />

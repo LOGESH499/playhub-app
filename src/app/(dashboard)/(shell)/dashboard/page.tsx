@@ -5,9 +5,11 @@ import { APP_ROLE_LABELS } from "@/lib/auth/roles";
 import { getDashboardData } from "@/features/dashboard/lib/queries";
 import {
   DashboardCalendar,
+  DashboardCharts,
   RecentActivity,
   StatCards,
 } from "@/features/dashboard";
+import { PageHeader } from "@/components/layout/page-header";
 import { RoleBadge } from "@/features/organization";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -18,7 +20,7 @@ export const dynamic = "force-dynamic";
 export default async function DashboardPage() {
   if (!isSupabaseConfigured()) {
     return (
-      <Card className="mx-auto max-w-lg">
+      <Card className="mx-auto max-w-lg surface-card">
         <CardHeader>
           <CardTitle>Supabase not configured</CardTitle>
         </CardHeader>
@@ -41,22 +43,20 @@ export default async function DashboardPage() {
   const data = await getDashboardData(context);
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight">
-            Welcome back, {context.profile.full_name}
-          </h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            {context.activeTenant
-              ? `${context.activeTenant.tenant.name} · ${APP_ROLE_LABELS[context.appRole]}`
-              : "Browsing as a player — join or create an organization to manage venues"}
-          </p>
-        </div>
-        <RoleBadge role={context.appRole} />
-      </div>
+    <div className="space-y-8">
+      <PageHeader
+        title={`Welcome back, ${context.profile.full_name}`}
+        description={
+          context.activeTenant
+            ? `${context.activeTenant.tenant.name} · ${APP_ROLE_LABELS[context.appRole]}`
+            : "Browsing as a player — join or create an organization to manage venues"
+        }
+        actions={<RoleBadge role={context.appRole} />}
+      />
 
       <StatCards stats={data.stats} />
+
+      <DashboardCharts stats={data.stats} calendarEvents={data.calendarEvents} />
 
       <div className="grid gap-6 lg:grid-cols-2">
         <DashboardCalendar events={data.calendarEvents} />
@@ -64,7 +64,7 @@ export default async function DashboardPage() {
       </div>
 
       {!context.activeTenant && (
-        <Card>
+        <Card className="surface-card-hover">
           <CardHeader>
             <CardTitle className="text-base">Get started</CardTitle>
           </CardHeader>
