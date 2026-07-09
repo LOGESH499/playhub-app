@@ -14,10 +14,10 @@ Track module-by-module implementation progress.
 | 2 | Database | ✅ Complete | 2026-07-09 |
 | 3 | Auth + Organizations + Roles | ✅ Complete | 2026-07-09 |
 | 4 | Dashboard | ✅ Complete | 2026-07-09 |
-| 5 | Sports Management | ⬜ Next | — |
-| 6 | Venue Management | ⬜ Pending | — |
-| 7 | Court Management | ⬜ Pending | — |
-| 8 | Slot Management | ⬜ Pending | — |
+| 5 | Sports Management | ✅ Complete | 2026-07-09 |
+| 6 | Venue Management | ✅ Complete | 2026-07-09 |
+| 7 | Court Management | ✅ Complete | 2026-07-09 |
+| 8 | Slot Management | ⬜ Next | — |
 | 9 | Real-Time Booking | ⬜ Pending | — |
 | 10 | Academy Management | ⬜ Pending | — |
 | 11 | Coach Management | ⬜ Pending | — |
@@ -180,10 +180,100 @@ src/components/theme-toggle.tsx
 
 ---
 
-## Module 5: Sports Management (Next)
+## Module 5: Sports Management ✅
 
-- [ ] Sport template pages
-- [ ] Sport metadata and icons
+### Completed tasks
+
+- [x] Migration `20260709000014_sports_management.sql` — extend `sport_templates` → `sports`
+- [x] `sport_categories`, `venue_sports`, `sport_status` enum
+- [x] Soft delete, featured flag, display order, booking rules JSONB, default price
+- [x] RLS: platform admin + tenant admin policies; `log_sport_audit` RPC
+- [x] Server actions: create, update, archive, delete, toggle status
+- [x] Zod schemas (`sports.schema.ts`) + React Hook Form sport form
+- [x] Sports list page: grid/list views, search, filters, pagination
+- [x] Create/edit pages with venue assignment + default pricing sync
+- [x] Loading, error, and empty states
+- [x] Sidebar navigation enabled for Sports
+- [x] Lint, typecheck, and production build pass
+
+### Key files
+
+```
+src/features/sports/
+  actions/sports.actions.ts
+  components/  — sport-card, sport-table, sport-form, filters, pagination
+  lib/         — queries.ts, types.ts, icons.ts
+src/app/(dashboard)/(shell)/sports/
+supabase/migrations/20260709000014_sports_management.sql
+src/lib/validators/sports.schema.ts
+```
+
+---
+
+## Module 6: Venue Management ✅
+
+### Completed tasks
+
+- [x] Migration `20260709000015_venue_management.sql` — `venue_status` enum, `venue_holidays`, `log_venue_audit`
+- [x] Venue CRUD server actions with Zod + React Hook Form
+- [x] Multiple venues per tenant with address, geo coordinates, amenities
+- [x] OpenStreetMap + Leaflet map picker and preview
+- [x] Gallery upload to Supabase Storage (`venue-media` bucket)
+- [x] Working hours, holidays, blackout dates, pricing rules editors
+- [x] Venue status (draft, active, inactive, maintenance, archived)
+- [x] List page: grid/list views, search, city/status filters, pagination
+- [x] Soft delete, archive, activate/deactivate, audit logs
+- [x] RLS on venues, holidays, hours, blackouts, pricing (existing + holidays)
+- [x] Sidebar navigation enabled for Venues
+- [x] Lint, typecheck, and production build pass
+
+### Key files
+
+```
+src/features/venues/
+  actions/venue.actions.ts
+  components/  — venue-card, venue-table, venue-form, map, gallery, filters
+  lib/         — queries.ts, parse.ts, types.ts, amenities.ts, storage.ts
+src/app/(dashboard)/(shell)/venues/
+supabase/migrations/20260709000015_venue_management.sql
+src/lib/validators/venue.schema.ts
+```
+
+---
+
+## Module 7: Court & Resource Management ✅
+
+### Completed tasks
+
+- [x] Migration `20260709000016_court_management.sql` — extend `resources`, `resource_status`, `running_track` sport
+- [x] Court CRUD with capacity, surface, dimensions (length/width), photos, equipment
+- [x] Availability (operating hours), maintenance mode, blackout periods
+- [x] Booking rules and resource-scoped pricing rules
+- [x] Support: Football Turf, Cricket Ground, Cricket Nets, Pickleball, Tennis, Badminton, Squash, Basketball, Volleyball, Swimming Lanes, Running Track
+- [x] `court-media` Supabase Storage bucket + `log_resource_audit` RPC
+- [x] List page: grid/list, search, venue/sport/status/indoor filters, pagination
+- [x] Server actions with Zod + React Hook Form
+- [x] Sidebar navigation enabled for Courts
+- [x] Lint, typecheck, and production build pass
+
+### Key files
+
+```
+src/features/courts/
+  actions/court.actions.ts
+  components/  — court-card, court-table, court-form, gallery, filters
+  lib/         — queries.ts, parse.ts, constants.ts, storage.ts
+src/app/(dashboard)/(shell)/courts/
+supabase/migrations/20260709000016_court_management.sql
+src/lib/validators/court.schema.ts
+```
+
+---
+
+## Module 8: Slot Management (Next)
+
+- [ ] Slot generation algorithm
+- [ ] Availability API
 
 ---
 

@@ -18,6 +18,7 @@ export const SPORT_TYPES = [
   "basketball",
   "volleyball",
   "swimming",
+  "running_track",
 ] as const satisfies readonly SportType[];
 
 export const ACADEMY_TYPES = [
@@ -57,6 +58,7 @@ export const SPORT_LABELS: Record<SportType, string> = {
   basketball: "Basketball",
   volleyball: "Volleyball",
   swimming: "Swimming",
+  running_track: "Running Track",
 };
 
 export const ACADEMY_LABELS: Record<AcademyType, string> = {

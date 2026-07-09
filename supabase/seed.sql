@@ -1,26 +1,31 @@
 -- PLAYHUB Seed: Sport templates, academy templates, demo tenant & venues
 -- Safe to re-run: uses ON CONFLICT / fixed UUIDs
 
--- ─── Sport templates (all 10 slot sports) ───────────────────────────────────
+-- ─── Platform sports catalog (all 10 slot sports) ───────────────────────────
 
-INSERT INTO public.sport_templates (sport_type, display_name, resource_label, default_slot_minutes, icon_name, metadata)
+INSERT INTO public.sports (
+  sport_type, slug, name, resource_label, default_slot_minutes, icon_name, metadata, status
+)
 VALUES
-  ('football', 'Football', 'Pitch', 90, 'trophy', '{"formats":["full","half"]}'),
-  ('cricket', 'Cricket', 'Ground', 120, 'circle-dot', '{"formats":["full","half"]}'),
-  ('cricket_nets', 'Cricket Nets', 'Net Bay', 60, 'target', '{}'),
-  ('pickleball', 'Pickleball', 'Court', 60, 'disc', '{}'),
-  ('badminton', 'Badminton', 'Court', 60, 'wind', '{}'),
-  ('tennis', 'Tennis', 'Court', 60, 'circle', '{}'),
-  ('squash', 'Squash', 'Court', 45, 'square', '{}'),
-  ('basketball', 'Basketball', 'Court', 60, 'circle', '{"formats":["full","half"]}'),
-  ('volleyball', 'Volleyball', 'Court', 60, 'circle', '{}'),
-  ('swimming', 'Swimming', 'Lane', 30, 'waves', '{}')
-ON CONFLICT (sport_type) DO UPDATE SET
-  display_name = EXCLUDED.display_name,
+  ('football', 'football', 'Football', 'Pitch', 90, 'trophy', '{"formats":["full","half"]}', 'active'),
+  ('cricket', 'cricket', 'Cricket', 'Ground', 120, 'circle-dot', '{"formats":["full","half"]}', 'active'),
+  ('cricket_nets', 'cricket-nets', 'Cricket Nets', 'Net Bay', 60, 'target', '{}', 'active'),
+  ('pickleball', 'pickleball', 'Pickleball', 'Court', 60, 'disc', '{}', 'active'),
+  ('badminton', 'badminton', 'Badminton', 'Court', 60, 'wind', '{}', 'active'),
+  ('tennis', 'tennis', 'Tennis', 'Court', 60, 'circle', '{}', 'active'),
+  ('squash', 'squash', 'Squash', 'Court', 45, 'square', '{}', 'active'),
+  ('basketball', 'basketball', 'Basketball', 'Court', 60, 'circle', '{"formats":["full","half"]}', 'active'),
+  ('volleyball', 'volleyball', 'Volleyball', 'Court', 60, 'circle', '{}', 'active'),
+  ('swimming', 'swimming', 'Swimming', 'Lane', 30, 'waves', '{}', 'active')
+ON CONFLICT (sport_type) WHERE sport_type IS NOT NULL AND deleted_at IS NULL
+DO UPDATE SET
+  name = EXCLUDED.name,
+  slug = EXCLUDED.slug,
   resource_label = EXCLUDED.resource_label,
   default_slot_minutes = EXCLUDED.default_slot_minutes,
   icon_name = EXCLUDED.icon_name,
-  metadata = EXCLUDED.metadata;
+  metadata = EXCLUDED.metadata,
+  status = EXCLUDED.status;
 
 -- ─── Academy templates (all 6 academy types) ──────────────────────────────
 

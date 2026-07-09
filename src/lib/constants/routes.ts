@@ -38,6 +38,9 @@ export function isProtectedRoute(pathname: string): boolean {
     pathname.startsWith(PROTECTED_ROUTES.profile) ||
     pathname.startsWith(PROTECTED_ROUTES.onboarding) ||
     pathname.startsWith(PROTECTED_ROUTES.organizations) ||
+    pathname.startsWith("/sports") ||
+    pathname.startsWith("/venues") ||
+    pathname.startsWith("/courts") ||
     pathname.startsWith("/invite/")
   );
 }

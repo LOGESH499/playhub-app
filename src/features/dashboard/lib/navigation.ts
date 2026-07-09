@@ -3,8 +3,10 @@ import {
   BarChart3,
   Building2,
   CalendarDays,
+  Dumbbell,
   GraduationCap,
   LayoutDashboard,
+  LayoutGrid,
   MapPin,
   Settings,
   Shield,
@@ -53,11 +55,19 @@ export function getDashboardNavigation(appRole: AppRole): NavSection[] {
       label: "Management",
       items: [
         {
+          title: "Sports",
+          href: "/sports",
+          icon: Dumbbell,
+        },
+        {
           title: "Venues",
           href: "/venues",
           icon: MapPin,
-          disabled: true,
-          badge: "Soon",
+        },
+        {
+          title: "Courts",
+          href: "/courts",
+          icon: LayoutGrid,
         },
         {
           title: "Bookings",

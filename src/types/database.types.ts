@@ -279,6 +279,7 @@ export type Database = {
           amenities: Json;
           images: Json;
           is_published: boolean;
+          status: Database["public"]["Enums"]["venue_status"];
           created_at: string;
           updated_at: string;
           deleted_at: string | null;
@@ -302,6 +303,7 @@ export type Database = {
           amenities?: Json;
           images?: Json;
           is_published?: boolean;
+          status?: Database["public"]["Enums"]["venue_status"];
           created_at?: string;
           updated_at?: string;
           deleted_at?: string | null;
@@ -325,6 +327,7 @@ export type Database = {
           amenities?: Json;
           images?: Json;
           is_published?: boolean;
+          status?: Database["public"]["Enums"]["venue_status"];
           created_at?: string;
           updated_at?: string;
           deleted_at?: string | null;
@@ -345,13 +348,21 @@ export type Database = {
           tenant_id: string;
           venue_id: string;
           name: string;
+          description: string | null;
           sport_type: Database["public"]["Enums"]["sport_type"];
           resource_subtype: string | null;
           capacity: number;
           surface_type: string | null;
+          length_m: number | null;
+          width_m: number | null;
           is_indoor: boolean;
           sort_order: number;
           metadata: Json;
+          images: Json;
+          equipment: Json;
+          booking_rules: Json;
+          status: Database["public"]["Enums"]["resource_status"];
+          maintenance_until: string | null;
           is_active: boolean;
           created_at: string;
           updated_at: string;
@@ -362,13 +373,21 @@ export type Database = {
           tenant_id: string;
           venue_id: string;
           name: string;
+          description?: string | null;
           sport_type: Database["public"]["Enums"]["sport_type"];
           resource_subtype?: string | null;
           capacity?: number;
           surface_type?: string | null;
+          length_m?: number | null;
+          width_m?: number | null;
           is_indoor?: boolean;
           sort_order?: number;
           metadata?: Json;
+          images?: Json;
+          equipment?: Json;
+          booking_rules?: Json;
+          status?: Database["public"]["Enums"]["resource_status"];
+          maintenance_until?: string | null;
           is_active?: boolean;
           created_at?: string;
           updated_at?: string;
@@ -379,13 +398,21 @@ export type Database = {
           tenant_id?: string;
           venue_id?: string;
           name?: string;
+          description?: string | null;
           sport_type?: Database["public"]["Enums"]["sport_type"];
           resource_subtype?: string | null;
           capacity?: number;
           surface_type?: string | null;
+          length_m?: number | null;
+          width_m?: number | null;
           is_indoor?: boolean;
           sort_order?: number;
           metadata?: Json;
+          images?: Json;
+          equipment?: Json;
+          booking_rules?: Json;
+          status?: Database["public"]["Enums"]["resource_status"];
+          maintenance_until?: string | null;
           is_active?: boolean;
           created_at?: string;
           updated_at?: string;
@@ -1357,38 +1384,239 @@ export type Database = {
           },
         ];
       };
-      sport_templates: {
+      sports: {
         Row: {
           id: string;
-          sport_type: Database["public"]["Enums"]["sport_type"];
-          display_name: string;
+          sport_type: Database["public"]["Enums"]["sport_type"] | null;
+          tenant_id: string | null;
+          category_id: string | null;
+          slug: string;
+          name: string;
+          description: string | null;
           resource_label: string;
           default_slot_minutes: number;
           icon_name: string | null;
+          image_url: string | null;
+          default_price: number | null;
+          booking_rules: Json;
+          status: Database["public"]["Enums"]["sport_status"];
+          is_featured: boolean;
+          display_order: number;
           metadata: Json;
+          created_by: string | null;
           created_at: string;
+          updated_at: string;
+          deleted_at: string | null;
         };
         Insert: {
           id?: string;
-          sport_type: Database["public"]["Enums"]["sport_type"];
-          display_name: string;
+          sport_type?: Database["public"]["Enums"]["sport_type"] | null;
+          tenant_id?: string | null;
+          category_id?: string | null;
+          slug: string;
+          name: string;
+          description?: string | null;
           resource_label: string;
           default_slot_minutes: number;
           icon_name?: string | null;
+          image_url?: string | null;
+          default_price?: number | null;
+          booking_rules?: Json;
+          status?: Database["public"]["Enums"]["sport_status"];
+          is_featured?: boolean;
+          display_order?: number;
           metadata?: Json;
+          created_by?: string | null;
           created_at?: string;
+          updated_at?: string;
+          deleted_at?: string | null;
         };
         Update: {
           id?: string;
-          sport_type?: Database["public"]["Enums"]["sport_type"];
-          display_name?: string;
+          sport_type?: Database["public"]["Enums"]["sport_type"] | null;
+          tenant_id?: string | null;
+          category_id?: string | null;
+          slug?: string;
+          name?: string;
+          description?: string | null;
           resource_label?: string;
           default_slot_minutes?: number;
           icon_name?: string | null;
+          image_url?: string | null;
+          default_price?: number | null;
+          booking_rules?: Json;
+          status?: Database["public"]["Enums"]["sport_status"];
+          is_featured?: boolean;
+          display_order?: number;
           metadata?: Json;
+          created_by?: string | null;
           created_at?: string;
+          updated_at?: string;
+          deleted_at?: string | null;
         };
-        Relationships: [];
+        Relationships: [
+          {
+            foreignKeyName: "sports_tenant_id_fkey";
+            columns: ["tenant_id"];
+            isOneToOne: false;
+            referencedRelation: "tenants";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "sports_category_id_fkey";
+            columns: ["category_id"];
+            isOneToOne: false;
+            referencedRelation: "sport_categories";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      sport_categories: {
+        Row: {
+          id: string;
+          tenant_id: string | null;
+          name: string;
+          slug: string;
+          description: string | null;
+          display_order: number;
+          created_at: string;
+          updated_at: string;
+          deleted_at: string | null;
+        };
+        Insert: {
+          id?: string;
+          tenant_id?: string | null;
+          name: string;
+          slug: string;
+          description?: string | null;
+          display_order?: number;
+          created_at?: string;
+          updated_at?: string;
+          deleted_at?: string | null;
+        };
+        Update: {
+          id?: string;
+          tenant_id?: string | null;
+          name?: string;
+          slug?: string;
+          description?: string | null;
+          display_order?: number;
+          created_at?: string;
+          updated_at?: string;
+          deleted_at?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "sport_categories_tenant_id_fkey";
+            columns: ["tenant_id"];
+            isOneToOne: false;
+            referencedRelation: "tenants";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      venue_holidays: {
+        Row: {
+          id: string;
+          tenant_id: string;
+          venue_id: string;
+          name: string;
+          holiday_date: string;
+          is_recurring_yearly: boolean;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          tenant_id: string;
+          venue_id: string;
+          name: string;
+          holiday_date: string;
+          is_recurring_yearly?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          tenant_id?: string;
+          venue_id?: string;
+          name?: string;
+          holiday_date?: string;
+          is_recurring_yearly?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "venue_holidays_tenant_id_fkey";
+            columns: ["tenant_id"];
+            isOneToOne: false;
+            referencedRelation: "tenants";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "venue_holidays_venue_id_fkey";
+            columns: ["venue_id"];
+            isOneToOne: false;
+            referencedRelation: "venues";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      venue_sports: {
+        Row: {
+          id: string;
+          tenant_id: string;
+          venue_id: string;
+          sport_id: string;
+          default_price: number | null;
+          is_active: boolean;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          tenant_id: string;
+          venue_id: string;
+          sport_id: string;
+          default_price?: number | null;
+          is_active?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          tenant_id?: string;
+          venue_id?: string;
+          sport_id?: string;
+          default_price?: number | null;
+          is_active?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "venue_sports_tenant_id_fkey";
+            columns: ["tenant_id"];
+            isOneToOne: false;
+            referencedRelation: "tenants";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "venue_sports_venue_id_fkey";
+            columns: ["venue_id"];
+            isOneToOne: false;
+            referencedRelation: "venues";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "venue_sports_sport_id_fkey";
+            columns: ["sport_id"];
+            isOneToOne: false;
+            referencedRelation: "sports";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       academy_templates: {
         Row: {
@@ -1566,6 +1794,36 @@ export type Database = {
         };
         Returns: string;
       };
+      log_sport_audit: {
+        Args: {
+          p_tenant_id: string | null;
+          p_action: string;
+          p_entity_id: string;
+          p_old_values?: Json | null;
+          p_new_values?: Json | null;
+        };
+        Returns: undefined;
+      };
+      log_venue_audit: {
+        Args: {
+          p_tenant_id: string;
+          p_action: string;
+          p_entity_id: string;
+          p_old_values?: Json | null;
+          p_new_values?: Json | null;
+        };
+        Returns: undefined;
+      };
+      log_resource_audit: {
+        Args: {
+          p_tenant_id: string;
+          p_action: string;
+          p_entity_id: string;
+          p_old_values?: Json | null;
+          p_new_values?: Json | null;
+        };
+        Returns: undefined;
+      };
     };
     Enums: {
       sport_type:
@@ -1578,7 +1836,16 @@ export type Database = {
         | "squash"
         | "basketball"
         | "volleyball"
-        | "swimming";
+        | "swimming"
+        | "running_track";
+      resource_status: "active" | "maintenance" | "inactive" | "archived";
+      sport_status: "active" | "disabled" | "archived";
+      venue_status:
+        | "draft"
+        | "active"
+        | "inactive"
+        | "maintenance"
+        | "archived";
       academy_type:
         | "running_academy"
         | "football_academy"

@@ -24,9 +24,9 @@ All development follows [docs/project-rules.md](./docs/project-rules.md):
 [████████████████████] Module 2  Database                      ✅ DONE
 [████████████████████] Module 3  Auth + Orgs + Roles           ✅ DONE
 [████████████████████] Module 4  Dashboard                      ✅ DONE
-[                    ] Module 5  Sports Management
-[                    ] Module 6  Venue Management
-[                    ] Module 7  Court Management
+[████████████████████] Module 5  Sports Management              ✅ DONE
+[████████████████████] Module 6  Venue Management               ✅ DONE
+[████████████████████] Module 7  Court Management               ✅ DONE
 [                    ] Module 8  Slot Management
 [                    ] Module 9  Real-Time Booking
 [                    ] Module 10 Academy Management
@@ -39,7 +39,7 @@ All development follows [docs/project-rules.md](./docs/project-rules.md):
 [                    ] Module 17 Deployment
 ```
 
-**Overall:** 4 / 17 modules complete (24%)
+**Overall:** 5 / 17 modules complete (29%)
 
 ---
 
@@ -105,36 +105,46 @@ Production dashboard shell with sidebar, top navigation, dark/light theme, role-
 
 ---
 
-## Module 5: Sports Management
+## Module 5: Sports Management ✅
 
-**Status:** Next up  
-**Depends on:** Module 2
+**Status:** Complete  
+**Completed:** 2026-07-09
 
-Sport templates, sport enum configuration, sport landing pages, icons and metadata per sport.
+Full sports catalog CRUD with categories, icons, images, booking rules, venue assignment, and audit logging.
+
+**Deliverables:**
+- Extended `sports` table (renamed from `sport_templates`) with soft delete, status, featured, display order
+- `sport_categories` + `venue_sports` junction with default pricing sync
+- `/sports` list (grid/list), `/sports/new`, `/sports/[id]/edit`
+- Server actions with Zod + React Hook Form
 
 ---
 
-## Module 6: Venue Management
+## Module 6: Venue Management ✅
 
-**Status:** Planned  
+**Status:** Complete  
 **Depends on:** Modules 2, 5
 
-Venue CRUD, address/geo, amenities, images (Storage), publish/unpublish, public venue pages.
+Venue CRUD, address/geo (Leaflet + OSM), amenities, gallery (Storage), working hours, holidays, blackouts, pricing rules, status, search/filters, audit logs, RLS.
+
+**Routes:** `/venues`, `/venues/new`, `/venues/[id]/edit`
 
 ---
 
-## Module 7: Court Management
+## Module 7: Court & Resource Management ✅
 
-**Status:** Planned  
+**Status:** Complete  
 **Depends on:** Module 6
 
-Resources (courts/lanes/pitches), sport assignment, operating hours, blackout periods.
+Court/resource CRUD on `resources` table: capacity, surface, dimensions, photos (Storage), equipment, availability hours, maintenance, blackouts, booking rules, pricing. All 11 sport resource types supported.
+
+**Routes:** `/courts`, `/courts/new`, `/courts/[id]/edit`
 
 ---
 
 ## Module 8: Slot Management
 
-**Status:** Planned  
+**Status:** Next up  
 **Depends on:** Module 7
 
 Slot generation algorithm, pricing rules, slot holds, availability API.

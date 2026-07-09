@@ -14,7 +14,9 @@ PLAYHUB is a production-ready SaaS platform that enables sports venues, academie
 | 2. Database | ✅ Complete |
 | 3. Auth + Organizations + Roles | ✅ Complete |
 | 4. Dashboard | ✅ Complete |
-| 5. Sports Management | ⬜ Next |
+| 5. Sports Management | ✅ Complete |
+| 6. Venue Management | ✅ Complete |
+| 7. Court Management | ✅ Complete |
 
 See [ROADMAP.md](./ROADMAP.md) and [TASKS.md](./TASKS.md) for full module tracking.
 
@@ -141,8 +143,26 @@ Open [http://localhost:3000](http://localhost:3000).
 - KPI statistics, recent activity, calendar, notifications panel
 - Role-aware navigation and data queries
 
-### Module 5 — Sports Management (next)
-- Sport templates and landing pages
+### Module 5 — Sports Management
+- Sports CRUD with categories, icons, images, booking rules
+- Grid/list views, search, filters, pagination
+- Venue assignment and default pricing sync
+- Soft delete, archive, enable/disable, audit logs
+
+### Module 6 — Venue Management
+- Venue CRUD with status, address, and OpenStreetMap + Leaflet geo picker
+- Amenities, gallery (Supabase Storage), working hours, holidays, blackouts
+- Pricing rules per venue, search/filters, grid/list views
+- Server actions, audit logs, RLS
+
+### Module 7 — Court & Resource Management
+- Court CRUD for all 11 resource types (turf, ground, nets, lanes, track, etc.)
+- Capacity, surface, dimensions, equipment, photos (Supabase Storage)
+- Availability hours, maintenance mode, blackouts, booking rules, pricing
+- Search/filters, grid/list views, audit logs, RLS
+
+### Module 8 — Slot Management (next)
+- Slot generation and availability API
 
 ## Documentation
 
@@ -164,9 +184,12 @@ playhub/
 │   ├── features/auth/         # Authentication
 │   ├── features/dashboard/    # Dashboard shell & widgets
 │   ├── features/organization/ # Tenants, roles, onboarding
+│   ├── features/sports/       # Sports catalog
+│   ├── features/venues/       # Venue management
+│   ├── features/courts/       # Court & resource management
 │   └── lib/                   # Supabase, validators, auth helpers
 ├── src/components/ui/         # Shadcn UI primitives
-├── supabase/migrations/       # 13 SQL migrations
+├── supabase/migrations/       # 16 SQL migrations
 ├── supabase/seed.sql     # Sports + demo venues
 ├── DATABASE.md           # Database reference & ERD
 ├── docs/                 # Planning documentation
