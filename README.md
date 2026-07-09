@@ -181,6 +181,21 @@ After `supabase db push`, run:
 supabase db execute -f scripts/verify-module-8.sql
 ```
 
+### Module 9 — Real-Time Booking
+
+- Atomic slot booking via `book_slot` RPC (integrates `validate_slot_window` + slot status sync)
+- Slot holds (10 min), instant booking, cancellation, rescheduling, waitlist
+- Booking statuses: pending, confirmed, completed, cancelled, expired
+- In-app notifications + email queue metadata for confirmations, reminders, cancellations
+- Customer dashboard (`/bookings`) and admin analytics (`/bookings/reports`)
+- Confirmation code, printable invoice, check-in QR code
+- Supabase Realtime on `bookings` and `slots`
+- Routes: `/bookings`, `/bookings/new`, `/bookings/[id]`, `/bookings/reports`
+
+```bash
+supabase db execute -f scripts/verify-module-9.sql
+```
+
 ### Enterprise UI System
 
 Premium SaaS design layer (Linear / Stripe / Vercel inspired):
@@ -225,9 +240,10 @@ playhub/
 │   ├── features/venues/       # Venue management
 │   ├── features/courts/       # Court & resource management
 │   ├── features/slots/        # Slot management
+│   ├── features/bookings/     # Booking engine
 │   └── lib/                   # Supabase, validators, auth helpers
 ├── src/components/ui/         # Shadcn UI primitives
-├── supabase/migrations/       # 18 SQL migrations
+├── supabase/migrations/       # 19 SQL migrations
 ├── supabase/seed.sql     # Sports + demo venues
 ├── DATABASE.md           # Database reference & ERD
 ├── docs/                 # Planning documentation

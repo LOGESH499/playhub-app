@@ -44,6 +44,7 @@ export const BOOKING_STATUSES = [
   "confirmed",
   "cancelled",
   "completed",
+  "expired",
   "no_show",
 ] as const satisfies readonly BookingStatus[];
 

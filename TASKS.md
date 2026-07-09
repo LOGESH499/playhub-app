@@ -18,8 +18,8 @@ Track module-by-module implementation progress.
 | 6 | Venue Management | ✅ Verified | 2026-07-09 |
 | 7 | Court Management | ✅ Verified | 2026-07-09 |
 | 8 | Slot Management | ✅ Verified | 2026-07-09 |
-| 9 | Real-Time Booking | ⬜ Next | — |
-| 10 | Academy Management | ⬜ Pending | — |
+| 9 | Real-Time Booking | ✅ Verified | 2026-07-09 |
+| 10 | Academy Management | ⬜ Next | — |
 | 11 | Coach Management | ⬜ Pending | — |
 | 12 | Membership | ⬜ Pending | — |
 | 13 | Payment | ⬜ Pending | — |
@@ -342,11 +342,34 @@ UI-only pass across existing modules (no API / DB / business logic changes):
 
 ---
 
-## Module 9: Real-Time Booking (Next)
+## Module 9: Real-Time Booking ✅
 
-- [ ] Booking flow UI
-- [ ] `create_booking()` RPC integration
-- [ ] Supabase Realtime slot updates
+- [x] Migrations `20260709000019_01_expired_booking_enum.sql`, `20260709000019_booking_engine.sql`
+- [x] `book_slot`, `create_slot_hold`, `reschedule_booking`, `join_waitlist` RPCs
+- [x] Slot integration: `slot_id`, status sync, `validate_slot_window`
+- [x] Booking UI: list, book flow, detail, invoice, QR, reports
+- [x] Realtime on `bookings` + `slots`, in-app notifications
+- [x] Verification script `scripts/verify-module-9.sql`
+
+**Files:**
+
+```
+src/features/bookings/
+  actions/booking.actions.ts
+  components/  — table, slot picker, detail, invoice, QR, reports
+  hooks/use-bookings-realtime.ts
+  lib/queries.ts
+src/app/(dashboard)/(shell)/bookings/
+supabase/migrations/20260709000019_booking_engine.sql
+src/lib/validators/booking.schema.ts
+```
+
+---
+
+## Module 10: Academy Management (Next)
+
+- [ ] Academy programs and enrollment UI
+- [ ] Coach assignment integration
 
 ---
 

@@ -577,6 +577,9 @@ export type Database = {
           cancellation_reason: string | null;
           cancelled_at: string | null;
           recurring_group_id: string | null;
+          slot_id: string | null;
+          confirmation_code: string | null;
+          reminder_sent_at: string | null;
           metadata: Json;
           created_at: string;
           updated_at: string;
@@ -600,6 +603,9 @@ export type Database = {
           cancellation_reason?: string | null;
           cancelled_at?: string | null;
           recurring_group_id?: string | null;
+          slot_id?: string | null;
+          confirmation_code?: string | null;
+          reminder_sent_at?: string | null;
           metadata?: Json;
           created_at?: string;
           updated_at?: string;
@@ -623,6 +629,9 @@ export type Database = {
           cancellation_reason?: string | null;
           cancelled_at?: string | null;
           recurring_group_id?: string | null;
+          slot_id?: string | null;
+          confirmation_code?: string | null;
+          reminder_sent_at?: string | null;
           metadata?: Json;
           created_at?: string;
           updated_at?: string;
@@ -675,6 +684,7 @@ export type Database = {
           start_time: string;
           end_time: string;
           expires_at: string;
+          slot_id: string | null;
           created_at: string;
         };
         Insert: {
@@ -685,6 +695,7 @@ export type Database = {
           start_time: string;
           end_time: string;
           expires_at: string;
+          slot_id?: string | null;
           created_at?: string;
         };
         Update: {
@@ -1964,8 +1975,67 @@ export type Database = {
           p_currency?: string;
           p_notes?: string;
           p_booked_by?: string;
+          p_slot_id?: string;
+          p_status?: Database["public"]["Enums"]["booking_status"];
         };
         Returns: Database["public"]["Tables"]["bookings"]["Row"];
+      };
+      book_slot: {
+        Args: {
+          p_slot_id: string;
+          p_user_id?: string;
+          p_hold_id?: string;
+          p_notes?: string;
+          p_booked_by?: string;
+          p_status?: Database["public"]["Enums"]["booking_status"];
+        };
+        Returns: Database["public"]["Tables"]["bookings"]["Row"];
+      };
+      create_slot_hold: {
+        Args: {
+          p_slot_id: string;
+          p_duration_minutes?: number;
+        };
+        Returns: Database["public"]["Tables"]["slot_holds"]["Row"];
+      };
+      reschedule_booking: {
+        Args: {
+          p_booking_id: string;
+          p_new_slot_id: string;
+          p_notes?: string;
+        };
+        Returns: Database["public"]["Tables"]["bookings"]["Row"];
+      };
+      complete_booking: {
+        Args: {
+          p_booking_id: string;
+        };
+        Returns: Database["public"]["Tables"]["bookings"]["Row"];
+      };
+      confirm_booking: {
+        Args: {
+          p_booking_id: string;
+        };
+        Returns: Database["public"]["Tables"]["bookings"]["Row"];
+      };
+      join_waitlist: {
+        Args: {
+          p_slot_id: string;
+          p_user_id?: string;
+        };
+        Returns: Database["public"]["Tables"]["waitlist_entries"]["Row"];
+      };
+      expire_pending_bookings: {
+        Args: {
+          p_max_age_minutes?: number;
+        };
+        Returns: number;
+      };
+      queue_booking_reminders: {
+        Args: {
+          p_hours_before?: number;
+        };
+        Returns: number;
       };
       cancel_booking: {
         Args: {
@@ -2084,6 +2154,7 @@ export type Database = {
         | "confirmed"
         | "cancelled"
         | "completed"
+        | "expired"
         | "no_show";
       enrollment_status:
         | "pending"

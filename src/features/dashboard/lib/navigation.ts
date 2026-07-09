@@ -79,8 +79,6 @@ export function getDashboardNavigation(appRole: AppRole): NavSection[] {
           title: "Bookings",
           href: "/bookings",
           icon: Ticket,
-          disabled: true,
-          badge: "Soon",
         },
         {
           title: "Academies",

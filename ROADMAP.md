@@ -28,7 +28,7 @@ All development follows [docs/project-rules.md](./docs/project-rules.md):
 [████████████████████] Module 6  Venue Management               ✅ VERIFIED
 [████████████████████] Module 7  Court Management               ✅ VERIFIED
 [████████████████████] Module 8  Slot Management               ✅ VERIFIED
-[                    ] Module 9  Real-Time Booking
+[████████████████████] Module 9  Real-Time Booking             ✅ VERIFIED
 [                    ] Module 10 Academy Management
 [                    ] Module 11 Coach Management
 [                    ] Module 12 Membership
@@ -39,7 +39,7 @@ All development follows [docs/project-rules.md](./docs/project-rules.md):
 [                    ] Module 17 Deployment
 ```
 
-**Overall:** 8 / 17 modules verified (47%) — Module 9 next
+**Overall:** 9 / 17 modules verified (53%) — Module 10 next
 
 ---
 
@@ -168,10 +168,14 @@ Slot templates, recurring generation, calendar views (day/week/month/timeline), 
 
 ## Module 9: Real-Time Booking
 
-**Status:** Planned  
-**Depends on:** Module 8
+**Status:** ✅ Verified  
+**Depends on:** Module 8 (verified)
 
-Booking flow UI, `create_booking()` RPC, Supabase Realtime, staff quick booking, cancellations.
+Atomic `book_slot` RPC, slot holds, waitlist, reschedule/cancel, notifications, QR check-in, invoice, realtime on `bookings` + `slots`.
+
+**Routes:** `/bookings`, `/bookings/new`, `/bookings/[id]`, `/bookings/reports`
+
+**Verification:** `scripts/verify-module-9.sql`
 
 ---
 

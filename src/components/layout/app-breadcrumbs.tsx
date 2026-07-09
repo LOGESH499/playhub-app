@@ -16,6 +16,8 @@ const ROUTE_LABELS: Record<string, string> = {
   venues: "Venues",
   courts: "Courts",
   slots: "Slots",
+  bookings: "Bookings",
+  reports: "Reports",
   templates: "Templates",
   profile: "Profile",
   organizations: "Organizations",
