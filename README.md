@@ -209,6 +209,18 @@ supabase db execute -f scripts/verify-module-9.sql
 supabase db execute -f scripts/verify-module-10.sql
 ```
 
+### Module 11 — Customer Portal
+
+- Unified customer hub at `/portal` with realtime booking & notification updates
+- Profile, membership packages, upcoming/history bookings, academy enrollments
+- Notifications, favorites (venues & sports), reviews & ratings, invoices
+- Settings with notification preferences stored in `profiles.preferences`
+- Routes under `/portal/*` with dedicated sidebar navigation
+
+```bash
+supabase db execute -f scripts/verify-module-11.sql
+```
+
 ### Enterprise UI System
 
 Premium SaaS design layer (Linear / Stripe / Vercel inspired):
@@ -255,9 +267,10 @@ playhub/
 │   ├── features/slots/        # Slot management
 │   ├── features/bookings/     # Booking engine
 │   ├── features/academies/    # Academy management
+│   ├── features/portal/       # Customer portal
 │   └── lib/                   # Supabase, validators, auth helpers
 ├── src/components/ui/         # Shadcn UI primitives
-├── supabase/migrations/       # 20 SQL migrations
+├── supabase/migrations/       # 21 SQL migrations
 ├── supabase/seed.sql     # Sports + demo venues
 ├── DATABASE.md           # Database reference & ERD
 ├── docs/                 # Planning documentation

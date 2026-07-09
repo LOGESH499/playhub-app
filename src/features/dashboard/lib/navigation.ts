@@ -1,16 +1,20 @@
 import type { LucideIcon } from "lucide-react";
 import {
   BarChart3,
+  Bell,
   Building2,
   CalendarClock,
   CalendarDays,
   Dumbbell,
+  FileText,
   GraduationCap,
+  Heart,
   LayoutDashboard,
   LayoutGrid,
   MapPin,
   Settings,
   Shield,
+  Star,
   Ticket,
   User,
   Users,
@@ -50,6 +54,20 @@ export function getDashboardNavigation(appRole: AppRole): NavSection[] {
       items: [
         { title: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
         { title: "Calendar", href: "/dashboard#calendar", icon: CalendarDays },
+      ],
+    },
+    {
+      label: "My Portal",
+      items: [
+        { title: "Portal home", href: "/portal", icon: User },
+        { title: "My bookings", href: "/portal/bookings", icon: Ticket },
+        { title: "Academies", href: "/portal/academies", icon: GraduationCap },
+        { title: "Membership", href: "/portal/membership", icon: Users },
+        { title: "Notifications", href: "/portal/notifications", icon: Bell },
+        { title: "Favorites", href: "/portal/favorites", icon: Heart },
+        { title: "Reviews", href: "/portal/reviews", icon: Star },
+        { title: "Invoices", href: "/portal/invoices", icon: FileText },
+        { title: "Settings", href: "/portal/settings", icon: Settings },
       ],
     },
     {
@@ -105,8 +123,7 @@ export function getDashboardNavigation(appRole: AppRole): NavSection[] {
       label: "Account",
       items: [
         { title: "Organizations", href: "/organizations", icon: Building2 },
-        { title: "Profile", href: "/profile", icon: User },
-        { title: "Settings", href: "/profile", icon: Settings },
+        { title: "Profile", href: "/portal/profile", icon: User },
       ],
     },
   ];

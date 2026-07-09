@@ -44,6 +44,7 @@ export function isProtectedRoute(pathname: string): boolean {
     pathname.startsWith("/slots") ||
     pathname.startsWith("/bookings") ||
     pathname.startsWith("/academies") ||
+    pathname.startsWith("/portal") ||
     pathname.startsWith("/invite/")
   );
 }

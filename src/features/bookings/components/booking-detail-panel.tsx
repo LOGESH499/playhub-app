@@ -21,12 +21,16 @@ interface BookingDetailPanelProps {
   booking: BookingWithRelations;
   canManage?: boolean;
   confirmed?: boolean;
+  backHref?: string;
+  listHref?: string;
 }
 
 export function BookingDetailPanel({
   booking,
   canManage,
   confirmed,
+  backHref,
+  listHref = "/bookings",
 }: BookingDetailPanelProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -37,6 +41,12 @@ export function BookingDetailPanel({
     <div className="space-y-6">
       {confirmed && (
         <Alert variant="success">Booking confirmed successfully.</Alert>
+      )}
+
+      {backHref && (
+        <Button variant="ghost" size="sm" asChild className="-ml-2 w-fit">
+          <Link href={backHref}>← Back</Link>
+        </Button>
       )}
 
       <Card className="surface-card">
@@ -96,7 +106,7 @@ export function BookingDetailPanel({
                       bookingId: booking.id,
                       reason,
                     });
-                    if (!result.error) router.push("/bookings");
+                    if (!result.error) router.push(listHref);
                   })
                 }
               >

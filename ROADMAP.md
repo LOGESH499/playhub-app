@@ -30,7 +30,7 @@ All development follows [docs/project-rules.md](./docs/project-rules.md):
 [████████████████████] Module 8  Slot Management               ✅ VERIFIED
 [████████████████████] Module 9  Real-Time Booking             ✅ VERIFIED
 [████████████████████] Module 10 Academy Management            ✅ VERIFIED
-[                    ] Module 11 Coach Management
+[████████████████████] Module 11 Customer Portal                 ✅ VERIFIED
 [                    ] Module 12 Membership
 [                    ] Module 13 Payment
 [                    ] Module 14 Notifications
@@ -39,7 +39,7 @@ All development follows [docs/project-rules.md](./docs/project-rules.md):
 [                    ] Module 17 Deployment
 ```
 
-**Overall:** 10 / 17 modules verified (59%) — Module 11 next
+**Overall:** 11 / 17 modules verified (65%) — Module 12 next
 
 ---
 
@@ -192,12 +192,16 @@ Programs, batches, schedules, enrollments, coach allocation, attendance, progres
 
 ---
 
-## Module 11: Coach Management
+## Module 11: Customer Portal
 
-**Status:** Planned  
-**Depends on:** Module 10
+**Status:** ✅ Verified  
+**Depends on:** Modules 9–10
 
-Coach assignment, attendance UI, session notes, coach-scoped views.
+Customer dashboard, profile, bookings (upcoming/history), academy enrollments, membership view, notifications, favorites, reviews, invoices, settings. Realtime on `bookings` + `notifications`.
+
+**Routes:** `/portal`, `/portal/bookings`, `/portal/academies`, `/portal/membership`, `/portal/notifications`, `/portal/favorites`, `/portal/reviews`, `/portal/invoices`, `/portal/settings`, `/portal/profile`
+
+**Verification:** `scripts/verify-module-11.sql`
 
 ---
 

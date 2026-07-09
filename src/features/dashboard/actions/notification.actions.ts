@@ -29,6 +29,8 @@ export async function markNotificationReadAction(
   }
 
   revalidatePath("/dashboard");
+  revalidatePath("/portal");
+  revalidatePath("/portal/notifications");
   return { success: "Marked as read" };
 }
 
@@ -50,5 +52,7 @@ export async function markAllNotificationsReadAction(): Promise<NotificationActi
   }
 
   revalidatePath("/dashboard");
+  revalidatePath("/portal");
+  revalidatePath("/portal/notifications");
   return { success: "All notifications marked as read" };
 }

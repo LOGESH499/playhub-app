@@ -20,8 +20,8 @@ Track module-by-module implementation progress.
 | 8 | Slot Management | ✅ Verified | 2026-07-09 |
 | 9 | Real-Time Booking | ✅ Verified | 2026-07-09 |
 | 10 | Academy Management | ✅ Verified | 2026-07-09 |
-| 11 | Coach Management | ⬜ Next | — |
-| 12 | Membership | ⬜ Pending | — |
+| 11 | Customer Portal | ✅ Verified | 2026-07-09 |
+| 12 | Membership | ⬜ Next | — |
 | 13 | Payment | ⬜ Pending | — |
 | 14 | Notifications | ⬜ Pending | — |
 | 15 | Reports | ⬜ Pending | — |
@@ -390,10 +390,34 @@ src/lib/validators/academy.schema.ts
 
 ---
 
-## Module 11: Coach Management (Next)
+## Module 11: Customer Portal ✅
 
-- [ ] Coach-scoped session calendar views
-- [ ] Session notes and enhanced coach tablet UX
+- [x] Migration `20260709000021_customer_portal.sql` — favorites, reviews, RPCs
+- [x] Portal dashboard with stats, upcoming bookings, quick actions
+- [x] Bookings (upcoming/history), invoices, academy enrollments
+- [x] Membership view, notifications, favorites, reviews & ratings
+- [x] Profile & settings (notification preferences in `profiles.preferences`)
+- [x] Realtime on `bookings` + `notifications`
+- [x] Verification script `scripts/verify-module-11.sql`
+
+**Files:**
+
+```
+src/features/portal/
+  actions/portal.actions.ts
+  components/  — stats, favorites, reviews, settings, notifications, membership
+  hooks/use-portal-realtime.ts
+  lib/queries.ts
+src/app/(dashboard)/(shell)/portal/
+supabase/migrations/20260709000021_customer_portal.sql
+src/lib/validators/portal.schema.ts
+```
+
+---
+
+## Module 12: Membership (Next)
+
+- [ ] Package purchase flow and credit deduction on booking
 
 ---
 

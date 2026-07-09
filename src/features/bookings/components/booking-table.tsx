@@ -14,9 +14,14 @@ import { Badge } from "@/components/ui/badge";
 interface BookingTableProps {
   bookings: BookingWithRelations[];
   canManage?: boolean;
+  detailBasePath?: string;
 }
 
-export function BookingTable({ bookings, canManage }: BookingTableProps) {
+export function BookingTable({
+  bookings,
+  canManage,
+  detailBasePath = "/bookings",
+}: BookingTableProps) {
   const columns = useMemo<ColumnDef<BookingWithRelations>[]>(() => {
     const cols: ColumnDef<BookingWithRelations>[] = [
       {
@@ -24,7 +29,7 @@ export function BookingTable({ bookings, canManage }: BookingTableProps) {
         header: "Code",
         cell: ({ row }) => (
           <Link
-            href={`/bookings/${row.original.id}`}
+            href={`${detailBasePath}/${row.original.id}`}
             className="font-mono text-xs font-medium hover:underline"
           >
             {row.original.confirmation_code ?? row.original.id.slice(0, 8)}
@@ -93,7 +98,7 @@ export function BookingTable({ bookings, canManage }: BookingTableProps) {
     }
 
     return cols;
-  }, [canManage]);
+  }, [canManage, detailBasePath]);
 
   return (
     <DataTable

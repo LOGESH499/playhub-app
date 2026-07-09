@@ -1680,6 +1680,69 @@ export type Database = {
         };
         Relationships: [];
       };
+      user_favorites: {
+        Row: {
+          id: string;
+          user_id: string;
+          tenant_id: string | null;
+          entity_type: string;
+          entity_id: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          tenant_id?: string | null;
+          entity_type: string;
+          entity_id: string;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          tenant_id?: string | null;
+          entity_type?: string;
+          entity_id?: string;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
+      venue_reviews: {
+        Row: {
+          id: string;
+          tenant_id: string;
+          user_id: string;
+          venue_id: string;
+          booking_id: string | null;
+          rating: number;
+          comment: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          tenant_id: string;
+          user_id: string;
+          venue_id: string;
+          booking_id?: string | null;
+          rating: number;
+          comment?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          tenant_id?: string;
+          user_id?: string;
+          venue_id?: string;
+          booking_id?: string | null;
+          rating?: number;
+          comment?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
       sports: {
         Row: {
           id: string;
@@ -2196,6 +2259,23 @@ export type Database = {
           p_notes?: string | null;
         };
         Returns: Database["public"]["Tables"]["fee_records"]["Row"];
+      };
+      toggle_user_favorite: {
+        Args: {
+          p_entity_type: string;
+          p_entity_id: string;
+          p_tenant_id?: string | null;
+        };
+        Returns: boolean;
+      };
+      upsert_venue_review: {
+        Args: {
+          p_venue_id: string;
+          p_rating: number;
+          p_comment?: string | null;
+          p_booking_id?: string | null;
+        };
+        Returns: Database["public"]["Tables"]["venue_reviews"]["Row"];
       };
       expire_slot_holds: {
         Args: Record<PropertyKey, never>;
