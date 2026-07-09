@@ -302,15 +302,32 @@ src/lib/validators/court.schema.ts
 
 ---
 
-## Module 8: Slot Management (Next)
+## Module 8: Slot Management ✅
 
-- [ ] Apply and verify migration `20260709000017_slot_management.sql`
-- [ ] Run extended verification after Module 8 push
-- [ ] Slot CRUD, templates, calendar views, bulk operations
+- [x] Migrations `20260709000017_slot_management.sql`, `20260709000018_slot_template_peak_hours.sql`
+- [x] Verification script `scripts/verify-module-8.sql`
+- [x] Slot CRUD, templates, calendar views (month/week/day/timeline/list)
+- [x] Bulk generate/block/unblock/duplicate/delete, dynamic pricing
+- [x] `validate_slot_window` RPC + overlap constraint
+- [x] Realtime on `slots`, routes `/slots`, nav integration
+
+**Files:**
+
+```
+src/features/slots/
+  actions/slot.actions.ts
+  components/  — calendars, timeline, bulk panel, forms, filters
+  hooks/use-slots-realtime.ts
+  lib/         — queries.ts, generation.ts, pricing.ts, calendar.ts
+src/app/(dashboard)/(shell)/slots/
+supabase/migrations/20260709000017_slot_management.sql
+supabase/migrations/20260709000018_slot_template_peak_hours.sql
+src/lib/validators/slot.schema.ts
+```
 
 ---
 
-## Module 9: Real-Time Booking (Pending)
+## Module 9: Real-Time Booking (Next)
 
 - [ ] Booking flow UI
 - [ ] `create_booking()` RPC integration

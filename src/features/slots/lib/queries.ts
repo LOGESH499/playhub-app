@@ -233,7 +233,7 @@ export async function getResourcesForSlotForm(
   return data ?? [];
 }
 
-export function canViewSlots(appRole: string): boolean {
+export function canViewSlots(_appRole: string): boolean {
   return true;
 }
 

@@ -704,7 +704,7 @@ export async function generateFromTemplateAction(
 
 export async function duplicateSlotAction(
   id: string
-): Promise<SlotActionResult | void> {
+): Promise<SlotActionResult> {
   let context;
   try {
     context = await requireSlotManager();
@@ -715,27 +715,52 @@ export async function duplicateSlotAction(
   const existing = await getSlotById(id);
   if (!existing) return { error: "Slot not found" };
 
+  const tenantId = context.activeTenant!.tenantId;
   const start = new Date(existing.start_time);
-  const end = new Date(existing.end_time);
   const duration = existing.duration_minutes;
   start.setDate(start.getDate() + 1);
-  end.setTime(start.getTime() + duration * 60000);
+  const end = new Date(start.getTime() + duration * 60000);
+  const startTime = start.toISOString();
+  const endTime = end.toISOString();
 
-  return createSlotAction({
-    venueId: existing.venue_id,
-    resourceId: existing.resource_id,
-    templateId: existing.template_id ?? "",
-    slotType: existing.slot_type,
+  const validation = await validateWindow(
+    tenantId,
+    existing.venue_id,
+    existing.resource_id,
+    startTime,
+    endTime
+  );
+  if (!validation.valid) return { error: validation.reason };
+
+  const supabase = await createClient();
+  const insert: TablesInsert<"slots"> = {
+    tenant_id: tenantId,
+    venue_id: existing.venue_id,
+    resource_id: existing.resource_id,
+    template_id: existing.template_id,
+    slot_type: existing.slot_type,
     recurrence: "none",
-    startTime: start.toISOString(),
-    endTime: end.toISOString(),
-    durationMinutes: duration,
-    bufferMinutes: existing.buffer_minutes,
-    pricePerSlot: Number(existing.price_per_slot),
+    start_time: startTime,
+    end_time: endTime,
+    duration_minutes: duration,
+    buffer_minutes: existing.buffer_minutes,
+    price_per_slot: Number(existing.price_per_slot),
     capacity: existing.capacity,
     status: "available",
-    blockReason: "",
-  });
+    block_reason: null,
+  };
+
+  const { data, error } = await supabase
+    .from("slots")
+    .insert(insert)
+    .select("id")
+    .single();
+
+  if (error) return { error: error.message };
+
+  await logAudit(tenantId, "slot.duplicated", data.id, existing.id, insert as Json);
+  revalidatePath("/slots");
+  return { success: "Slot duplicated (+1 day)" };
 }
 
 export async function deleteSlotTemplateAction(

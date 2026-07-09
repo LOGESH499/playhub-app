@@ -163,6 +163,23 @@ Open [http://localhost:3000](http://localhost:3000).
 - Availability hours, maintenance mode, blackouts, booking rules, pricing
 - Search/filters, grid/list views, audit logs, RLS
 
+### Module 8 — Slot Management
+
+- Slot templates with daily/weekly/monthly recurrence and peak windows
+- Slot generator (bulk + manual), calendar views (day/week/month/timeline/list)
+- Availability engine: available, booked, blocked, maintenance, holiday, peak/off-peak
+- Dynamic pricing via `pricing_rules` integration (peak, weekend, holiday, member)
+- Bulk create/edit/delete/block/unblock/duplicate; maintenance & holiday blocks
+- Conflict detection via `validate_slot_window` RPC + `slots_no_overlap` constraint
+- Supabase Realtime on `slots` for multi-user sync
+- Routes: `/slots`, `/slots/new`, `/slots/[id]/edit`, `/slots/templates`
+
+After `supabase db push`, run:
+
+```bash
+supabase db execute -f scripts/verify-module-8.sql
+```
+
 ### Modules 5–7 — Migration verification
 
 Migrations `00014`–`00016` are idempotent and repair-safe after partial failures. After `supabase db push`, run:
@@ -172,10 +189,6 @@ supabase db execute -f scripts/verify-modules-5-7.sql
 ```
 
 This checks tables, RLS policies, indexes, constraints, foreign keys, `court-media` storage, and realtime baseline.
-
-### Module 8 — Slot Management (next)
-
-Pending full migration verification. See [TASKS.md](./TASKS.md).
 
 ## Documentation
 
@@ -203,7 +216,7 @@ playhub/
 │   ├── features/slots/        # Slot management
 │   └── lib/                   # Supabase, validators, auth helpers
 ├── src/components/ui/         # Shadcn UI primitives
-├── supabase/migrations/       # 17 SQL migrations
+├── supabase/migrations/       # 18 SQL migrations
 ├── supabase/seed.sql     # Sports + demo venues
 ├── DATABASE.md           # Database reference & ERD
 ├── docs/                 # Planning documentation

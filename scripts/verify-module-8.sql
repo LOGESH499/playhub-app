@@ -65,10 +65,11 @@ BEGIN
   FROM pg_policies
   WHERE schemaname = 'public' AND tablename = 'slots'
     AND policyname IN (
-      'slots_select_tenant',
-      'slots_manage_tenant'
+      'slots_select_public',
+      'slots_select_member',
+      'slots_manage_manager'
     );
-  IF v_count < 2 THEN
+  IF v_count < 3 THEN
     v_failures := array_append(v_failures, 'M8: slots RLS policies incomplete');
   END IF;
 
@@ -76,8 +77,8 @@ BEGIN
   FROM pg_policies
   WHERE schemaname = 'public' AND tablename = 'slot_templates'
     AND policyname IN (
-      'slot_templates_select_tenant',
-      'slot_templates_manage_tenant'
+      'slot_templates_select_member',
+      'slot_templates_manage_manager'
     );
   IF v_count < 2 THEN
     v_failures := array_append(v_failures, 'M8: slot_templates RLS policies incomplete');

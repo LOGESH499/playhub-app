@@ -27,7 +27,7 @@ All development follows [docs/project-rules.md](./docs/project-rules.md):
 [████████████████████] Module 5  Sports Management              ✅ VERIFIED
 [████████████████████] Module 6  Venue Management               ✅ VERIFIED
 [████████████████████] Module 7  Court Management               ✅ VERIFIED
-[                    ] Module 8  Slot Management
+[████████████████████] Module 8  Slot Management               ✅ VERIFIED
 [                    ] Module 9  Real-Time Booking
 [                    ] Module 10 Academy Management
 [                    ] Module 11 Coach Management
@@ -39,7 +39,7 @@ All development follows [docs/project-rules.md](./docs/project-rules.md):
 [                    ] Module 17 Deployment
 ```
 
-**Overall:** 7 / 17 modules verified (41%) — Module 8 next
+**Overall:** 8 / 17 modules verified (47%) — Module 9 next
 
 ---
 
@@ -153,10 +153,14 @@ Full sports catalog CRUD with categories, icons, images, booking rules, venue as
 
 ## Module 8: Slot Management
 
-**Status:** Next up  
+**Status:** ✅ Verified  
 **Depends on:** Module 7 (verified)
 
-Slot generation, templates, calendar views, bulk operations, `validate_slot_window` RPC, Realtime on `slots`.
+Slot templates, recurring generation, calendar views (day/week/month/timeline), bulk operations, dynamic pricing, `validate_slot_window` RPC, Realtime on `slots`.
+
+**Routes:** `/slots`, `/slots/new`, `/slots/[id]/edit`, `/slots/templates`
+
+**Verification:** `scripts/verify-module-8.sql`
 
 ---
 

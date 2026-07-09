@@ -48,10 +48,7 @@ export function SlotResourceTimeline({
     (_, i) => TIMELINE_START_HOUR + i
   );
 
-  function handleDrop(
-    e: React.DragEvent,
-    resourceId: string
-  ) {
+  function handleDrop(e: React.DragEvent) {
     if (!canManage || !onSlotDragEnd) return;
     e.preventDefault();
     const slotId = e.dataTransfer.getData("slotId");
@@ -121,7 +118,7 @@ export function SlotResourceTimeline({
               className="relative border-l bg-muted/10"
               style={{ height: TIMELINE_HEIGHT_PX }}
               onDragOver={(e) => canManage && e.preventDefault()}
-              onDrop={(e) => handleDrop(e, resource.id)}
+              onDrop={(e) => handleDrop(e)}
             >
               {resourceSlots.map((slot) => {
                 const top = timeToTopPercent(slot.start_time);
