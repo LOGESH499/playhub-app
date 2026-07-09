@@ -14,9 +14,9 @@ Track module-by-module implementation progress.
 | 2 | Database | ✅ Complete | 2026-07-09 |
 | 3 | Auth + Organizations + Roles | ✅ Complete | 2026-07-09 |
 | 4 | Dashboard | ✅ Complete | 2026-07-09 |
-| 5 | Sports Management | ✅ Complete | 2026-07-09 |
-| 6 | Venue Management | ✅ Complete | 2026-07-09 |
-| 7 | Court Management | ✅ Complete | 2026-07-09 |
+| 5 | Sports Management | ✅ Verified | 2026-07-09 |
+| 6 | Venue Management | ✅ Verified | 2026-07-09 |
+| 7 | Court Management | ✅ Verified | 2026-07-09 |
 | 8 | Slot Management | ⬜ Next | — |
 | 9 | Real-Time Booking | ⬜ Pending | — |
 | 10 | Academy Management | ⬜ Pending | — |
@@ -180,7 +180,18 @@ src/components/theme-toggle.tsx
 
 ---
 
-## Module 5: Sports Management ✅
+## Module 5: Sports Management ✅ (Verified)
+
+### Verification (2026-07-09)
+
+- [x] Migration `20260709000014` idempotent (`sport_templates` → `sports`, constraint-safe)
+- [x] Tables: `sports`, `sport_categories`, `venue_sports`
+- [x] Indexes: `sports_sport_type_unique`, `sports_slug_unique`, `sports_name_unique`
+- [x] RLS: `sports_select_active`, `sports_manage_platform`, `sports_manage_tenant_admin`, `venue_sports_*`
+- [x] FK: `venue_sports.sport_id` → `sports.id`
+- [x] RPC: `log_sport_audit`
+- [x] Types: `sport_status`, `sports`, `sport_categories`, `venue_sports` in `database.types.ts`
+- [x] Script: `scripts/verify-modules-5-7.sql`
 
 ### Completed tasks
 
@@ -210,7 +221,17 @@ src/lib/validators/sports.schema.ts
 
 ---
 
-## Module 6: Venue Management ✅
+## Module 6: Venue Management ✅ (Verified)
+
+### Verification (2026-07-09)
+
+- [x] Migration `20260709000015` idempotent
+- [x] `venue_status` enum + `venues.status` column
+- [x] Table: `venue_holidays` with unique `(venue_id, holiday_date)`
+- [x] Index: `venues_status_idx`
+- [x] RLS: `venue_holidays_*`, updated `venues_select_public`
+- [x] RPC: `log_venue_audit`; trigger `venues_sync_published`
+- [x] Types: `venue_status`, `venue_holidays` in `database.types.ts`
 
 ### Completed tasks
 
@@ -241,7 +262,18 @@ src/lib/validators/venue.schema.ts
 
 ---
 
-## Module 7: Court & Resource Management ✅
+## Module 7: Court & Resource Management ✅ (Verified)
+
+### Verification (2026-07-09)
+
+- [x] Migration `20260709000016` idempotent
+- [x] `resource_status` enum + `resources.status`, `maintenance_until`
+- [x] Index: `resources_status_idx`
+- [x] Trigger: `resources_sync_active` (syncs `is_active` from `status`)
+- [x] Storage: `court-media` bucket + 4 RLS policies
+- [x] RPC: `log_resource_audit`
+- [x] Types: `resource_status`, extended `resources` row in `database.types.ts`
+- [x] Lint, typecheck, and production build pass
 
 ### Completed tasks
 
@@ -272,8 +304,17 @@ src/lib/validators/court.schema.ts
 
 ## Module 8: Slot Management (Next)
 
-- [ ] Slot generation algorithm
-- [ ] Availability API
+- [ ] Apply and verify migration `20260709000017_slot_management.sql`
+- [ ] Run extended verification after Module 8 push
+- [ ] Slot CRUD, templates, calendar views, bulk operations
+
+---
+
+## Module 9: Real-Time Booking (Pending)
+
+- [ ] Booking flow UI
+- [ ] `create_booking()` RPC integration
+- [ ] Supabase Realtime slot updates
 
 ---
 

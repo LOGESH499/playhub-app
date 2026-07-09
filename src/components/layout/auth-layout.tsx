@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Trophy } from "lucide-react";
+import { SupabaseConfigNotice } from "@/components/supabase-config-notice";
 
 interface AuthLayoutProps {
   children: React.ReactNode;
@@ -24,7 +25,10 @@ export function AuthLayout({ children, title, description }: AuthLayoutProps) {
         <p className="text-sm text-muted-foreground">{description}</p>
       </div>
 
-      <div className="mt-6 w-full max-w-md">{children}</div>
+      <div className="mt-6 w-full max-w-md">
+        <SupabaseConfigNotice />
+        {children}
+      </div>
     </div>
   );
 }

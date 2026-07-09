@@ -721,6 +721,198 @@ export type Database = {
           },
         ];
       };
+      slot_templates: {
+        Row: {
+          id: string;
+          tenant_id: string;
+          venue_id: string;
+          resource_id: string;
+          name: string;
+          description: string | null;
+          recurrence: Database["public"]["Enums"]["slot_recurrence"];
+          days_of_week: number[];
+          start_time: string;
+          end_time: string;
+          slot_duration_minutes: number;
+          buffer_minutes: number;
+          peak_price: number | null;
+          off_peak_price: number | null;
+          default_slot_type: Database["public"]["Enums"]["slot_type"];
+          valid_from: string;
+          valid_until: string | null;
+          is_active: boolean;
+          created_at: string;
+          updated_at: string;
+          deleted_at: string | null;
+        };
+        Insert: {
+          id?: string;
+          tenant_id: string;
+          venue_id: string;
+          resource_id: string;
+          name: string;
+          description?: string | null;
+          recurrence?: Database["public"]["Enums"]["slot_recurrence"];
+          days_of_week?: number[];
+          start_time: string;
+          end_time: string;
+          slot_duration_minutes: number;
+          buffer_minutes?: number;
+          peak_price?: number | null;
+          off_peak_price?: number | null;
+          default_slot_type?: Database["public"]["Enums"]["slot_type"];
+          valid_from?: string;
+          valid_until?: string | null;
+          is_active?: boolean;
+          created_at?: string;
+          updated_at?: string;
+          deleted_at?: string | null;
+        };
+        Update: {
+          id?: string;
+          tenant_id?: string;
+          venue_id?: string;
+          resource_id?: string;
+          name?: string;
+          description?: string | null;
+          recurrence?: Database["public"]["Enums"]["slot_recurrence"];
+          days_of_week?: number[];
+          start_time?: string;
+          end_time?: string;
+          slot_duration_minutes?: number;
+          buffer_minutes?: number;
+          peak_price?: number | null;
+          off_peak_price?: number | null;
+          default_slot_type?: Database["public"]["Enums"]["slot_type"];
+          valid_from?: string;
+          valid_until?: string | null;
+          is_active?: boolean;
+          created_at?: string;
+          updated_at?: string;
+          deleted_at?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "slot_templates_tenant_id_fkey";
+            columns: ["tenant_id"];
+            isOneToOne: false;
+            referencedRelation: "tenants";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "slot_templates_venue_id_fkey";
+            columns: ["venue_id"];
+            isOneToOne: false;
+            referencedRelation: "venues";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "slot_templates_resource_id_fkey";
+            columns: ["resource_id"];
+            isOneToOne: false;
+            referencedRelation: "resources";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      slots: {
+        Row: {
+          id: string;
+          tenant_id: string;
+          venue_id: string;
+          resource_id: string;
+          template_id: string | null;
+          slot_type: Database["public"]["Enums"]["slot_type"];
+          recurrence: Database["public"]["Enums"]["slot_recurrence"];
+          recurring_group_id: string | null;
+          start_time: string;
+          end_time: string;
+          duration_minutes: number;
+          buffer_minutes: number;
+          price_per_slot: number;
+          capacity: number;
+          status: Database["public"]["Enums"]["slot_status"];
+          block_reason: string | null;
+          metadata: Json;
+          created_at: string;
+          updated_at: string;
+          deleted_at: string | null;
+        };
+        Insert: {
+          id?: string;
+          tenant_id: string;
+          venue_id: string;
+          resource_id: string;
+          template_id?: string | null;
+          slot_type?: Database["public"]["Enums"]["slot_type"];
+          recurrence?: Database["public"]["Enums"]["slot_recurrence"];
+          recurring_group_id?: string | null;
+          start_time: string;
+          end_time: string;
+          duration_minutes: number;
+          buffer_minutes?: number;
+          price_per_slot?: number;
+          capacity?: number;
+          status?: Database["public"]["Enums"]["slot_status"];
+          block_reason?: string | null;
+          metadata?: Json;
+          created_at?: string;
+          updated_at?: string;
+          deleted_at?: string | null;
+        };
+        Update: {
+          id?: string;
+          tenant_id?: string;
+          venue_id?: string;
+          resource_id?: string;
+          template_id?: string | null;
+          slot_type?: Database["public"]["Enums"]["slot_type"];
+          recurrence?: Database["public"]["Enums"]["slot_recurrence"];
+          recurring_group_id?: string | null;
+          start_time?: string;
+          end_time?: string;
+          duration_minutes?: number;
+          buffer_minutes?: number;
+          price_per_slot?: number;
+          capacity?: number;
+          status?: Database["public"]["Enums"]["slot_status"];
+          block_reason?: string | null;
+          metadata?: Json;
+          created_at?: string;
+          updated_at?: string;
+          deleted_at?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "slots_tenant_id_fkey";
+            columns: ["tenant_id"];
+            isOneToOne: false;
+            referencedRelation: "tenants";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "slots_venue_id_fkey";
+            columns: ["venue_id"];
+            isOneToOne: false;
+            referencedRelation: "venues";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "slots_resource_id_fkey";
+            columns: ["resource_id"];
+            isOneToOne: false;
+            referencedRelation: "resources";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "slots_template_id_fkey";
+            columns: ["template_id"];
+            isOneToOne: false;
+            referencedRelation: "slot_templates";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       waitlist_entries: {
         Row: {
           id: string;
@@ -1824,6 +2016,27 @@ export type Database = {
         };
         Returns: undefined;
       };
+      log_slot_audit: {
+        Args: {
+          p_tenant_id: string;
+          p_action: string;
+          p_entity_id: string;
+          p_old_values?: Json | null;
+          p_new_values?: Json | null;
+        };
+        Returns: undefined;
+      };
+      validate_slot_window: {
+        Args: {
+          p_tenant_id: string;
+          p_venue_id: string;
+          p_resource_id: string;
+          p_start_time: string;
+          p_end_time: string;
+          p_exclude_slot_id?: string | null;
+        };
+        Returns: Json;
+      };
     };
     Enums: {
       sport_type:
@@ -1878,6 +2091,20 @@ export type Database = {
       attendance_status: "present" | "absent" | "late" | "excused";
       tenant_status: "active" | "suspended";
       discount_type: "percentage" | "fixed";
+      slot_type:
+        | "standard"
+        | "peak"
+        | "off_peak"
+        | "blocked"
+        | "holiday"
+        | "maintenance";
+      slot_status:
+        | "available"
+        | "blocked"
+        | "booked"
+        | "maintenance"
+        | "cancelled";
+      slot_recurrence: "none" | "daily" | "weekly" | "monthly";
     };
     CompositeTypes: {
       [_ in never]: never;

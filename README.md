@@ -14,9 +14,10 @@ PLAYHUB is a production-ready SaaS platform that enables sports venues, academie
 | 2. Database | ✅ Complete |
 | 3. Auth + Organizations + Roles | ✅ Complete |
 | 4. Dashboard | ✅ Complete |
-| 5. Sports Management | ✅ Complete |
-| 6. Venue Management | ✅ Complete |
-| 7. Court Management | ✅ Complete |
+| 5. Sports Management | ✅ Verified |
+| 6. Venue Management | ✅ Verified |
+| 7. Court Management | ✅ Verified |
+| 8. Slot Management | ⬜ Next (pending verification) |
 
 See [ROADMAP.md](./ROADMAP.md) and [TASKS.md](./TASKS.md) for full module tracking.
 
@@ -116,6 +117,7 @@ Open [http://localhost:3000](http://localhost:3000).
 | `npm run db:push` | Push migrations to linked Supabase project |
 | `npm run db:reset` | Reset local DB (migrations + seed) |
 | `npm run db:seed` | Run seed.sql on linked project |
+| `supabase db execute -f scripts/verify-modules-5-7.sql` | Verify Modules 5–7 schema after push |
 
 ## Current Features
 
@@ -161,8 +163,19 @@ Open [http://localhost:3000](http://localhost:3000).
 - Availability hours, maintenance mode, blackouts, booking rules, pricing
 - Search/filters, grid/list views, audit logs, RLS
 
+### Modules 5–7 — Migration verification
+
+Migrations `00014`–`00016` are idempotent and repair-safe after partial failures. After `supabase db push`, run:
+
+```bash
+supabase db execute -f scripts/verify-modules-5-7.sql
+```
+
+This checks tables, RLS policies, indexes, constraints, foreign keys, `court-media` storage, and realtime baseline.
+
 ### Module 8 — Slot Management (next)
-- Slot generation and availability API
+
+Pending full migration verification. See [TASKS.md](./TASKS.md).
 
 ## Documentation
 
@@ -187,9 +200,10 @@ playhub/
 │   ├── features/sports/       # Sports catalog
 │   ├── features/venues/       # Venue management
 │   ├── features/courts/       # Court & resource management
+│   ├── features/slots/        # Slot management
 │   └── lib/                   # Supabase, validators, auth helpers
 ├── src/components/ui/         # Shadcn UI primitives
-├── supabase/migrations/       # 16 SQL migrations
+├── supabase/migrations/       # 17 SQL migrations
 ├── supabase/seed.sql     # Sports + demo venues
 ├── DATABASE.md           # Database reference & ERD
 ├── docs/                 # Planning documentation

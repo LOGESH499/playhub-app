@@ -5,6 +5,10 @@ import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import {
+  isSupabaseConfigured,
+  SUPABASE_CONFIG_MESSAGE,
+} from "@/lib/supabase/config";
+import {
   forgotPasswordSchema,
   loginSchema,
   magicLinkSchema,
@@ -30,6 +34,13 @@ export type AuthActionResult = {
 
 function getAppUrl() {
   return process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
+}
+
+function supabaseConfigError(): AuthActionResult | null {
+  if (!isSupabaseConfigured()) {
+    return { error: SUPABASE_CONFIG_MESSAGE };
+  }
+  return null;
 }
 
 async function redirectAfterLogin(redirectTo?: string) {
@@ -72,6 +83,9 @@ export async function loginAction(
     return { error: parsed.error.errors[0]?.message ?? "Invalid input" };
   }
 
+  const configError = supabaseConfigError();
+  if (configError) return configError;
+
   const supabase = await createClient();
   const { error } = await supabase.auth.signInWithPassword({
     email: parsed.data.email,
@@ -93,6 +107,9 @@ export async function registerAction(
   if (!parsed.success) {
     return { error: parsed.error.errors[0]?.message ?? "Invalid input" };
   }
+
+  const configError = supabaseConfigError();
+  if (configError) return configError;
 
   const supabase = await createClient();
   const { data, error } = await supabase.auth.signUp({
@@ -127,6 +144,9 @@ export async function forgotPasswordAction(
     return { error: parsed.error.errors[0]?.message ?? "Invalid input" };
   }
 
+  const configError = supabaseConfigError();
+  if (configError) return configError;
+
   const supabase = await createClient();
   const { error } = await supabase.auth.resetPasswordForEmail(
     parsed.data.email,
@@ -152,6 +172,9 @@ export async function resetPasswordAction(
     return { error: parsed.error.errors[0]?.message ?? "Invalid input" };
   }
 
+  const configError = supabaseConfigError();
+  if (configError) return configError;
+
   const supabase = await createClient();
   const { error } = await supabase.auth.updateUser({
     password: parsed.data.password,
@@ -165,6 +188,10 @@ export async function resetPasswordAction(
 }
 
 export async function signOutAction() {
+  if (!isSupabaseConfigured()) {
+    redirect("/login");
+  }
+
   const supabase = await createClient();
   await supabase.auth.signOut();
 
@@ -182,6 +209,9 @@ export async function updateProfileAction(
   if (!parsed.success) {
     return { error: parsed.error.errors[0]?.message ?? "Invalid input" };
   }
+
+  const configError = supabaseConfigError();
+  if (configError) return configError;
 
   const supabase = await createClient();
   const {
@@ -228,6 +258,9 @@ export async function signInWithMagicLinkAction(
     return { error: parsed.error.errors[0]?.message ?? "Invalid input" };
   }
 
+  const configError = supabaseConfigError();
+  if (configError) return configError;
+
   const supabase = await createClient();
   const { error } = await supabase.auth.signInWithOtp({
     email: parsed.data.email,
@@ -246,6 +279,9 @@ export async function signInWithMagicLinkAction(
 }
 
 export async function resendVerificationEmailAction(): Promise<AuthActionResult> {
+  const configError = supabaseConfigError();
+  if (configError) return configError;
+
   const supabase = await createClient();
   const {
     data: { user },
@@ -271,6 +307,10 @@ export async function resendVerificationEmailAction(): Promise<AuthActionResult>
 }
 
 export async function signInWithGoogleAction() {
+  if (!isSupabaseConfigured()) {
+    redirect(`/login?error=${encodeURIComponent(SUPABASE_CONFIG_MESSAGE)}`);
+  }
+
   const supabase = await createClient();
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",

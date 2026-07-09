@@ -24,9 +24,9 @@ All development follows [docs/project-rules.md](./docs/project-rules.md):
 [████████████████████] Module 2  Database                      ✅ DONE
 [████████████████████] Module 3  Auth + Orgs + Roles           ✅ DONE
 [████████████████████] Module 4  Dashboard                      ✅ DONE
-[████████████████████] Module 5  Sports Management              ✅ DONE
-[████████████████████] Module 6  Venue Management               ✅ DONE
-[████████████████████] Module 7  Court Management               ✅ DONE
+[████████████████████] Module 5  Sports Management              ✅ VERIFIED
+[████████████████████] Module 6  Venue Management               ✅ VERIFIED
+[████████████████████] Module 7  Court Management               ✅ VERIFIED
 [                    ] Module 8  Slot Management
 [                    ] Module 9  Real-Time Booking
 [                    ] Module 10 Academy Management
@@ -39,7 +39,7 @@ All development follows [docs/project-rules.md](./docs/project-rules.md):
 [                    ] Module 17 Deployment
 ```
 
-**Overall:** 5 / 17 modules complete (29%)
+**Overall:** 7 / 17 modules verified (41%) — Module 8 next
 
 ---
 
@@ -120,12 +120,21 @@ Full sports catalog CRUD with categories, icons, images, booking rules, venue as
 
 ---
 
+## Module 5: Sports Management ✅
+
+**Status:** Verified (2026-07-09)  
+**Migration:** `20260709000014_sports_management.sql` (idempotent)
+
+**Verified:** `sports`, `sport_categories`, `venue_sports` tables; soft-delete unique indexes; `log_sport_audit`; RLS on sports/categories/venue_sports.
+
+---
+
 ## Module 6: Venue Management ✅
 
-**Status:** Complete  
-**Depends on:** Modules 2, 5
+**Status:** Verified (2026-07-09)  
+**Migration:** `20260709000015_venue_management.sql` (idempotent)
 
-Venue CRUD, address/geo (Leaflet + OSM), amenities, gallery (Storage), working hours, holidays, blackouts, pricing rules, status, search/filters, audit logs, RLS.
+**Verified:** `venue_status` enum, `venues.status`, `venue_holidays`, `log_venue_audit`, `venues_select_public` policy, sync trigger.
 
 **Routes:** `/venues`, `/venues/new`, `/venues/[id]/edit`
 
@@ -133,10 +142,10 @@ Venue CRUD, address/geo (Leaflet + OSM), amenities, gallery (Storage), working h
 
 ## Module 7: Court & Resource Management ✅
 
-**Status:** Complete  
-**Depends on:** Module 6
+**Status:** Verified (2026-07-09)  
+**Migration:** `20260709000016_court_management.sql` (idempotent)
 
-Court/resource CRUD on `resources` table: capacity, surface, dimensions, photos (Storage), equipment, availability hours, maintenance, blackouts, booking rules, pricing. All 11 sport resource types supported.
+**Verified:** `resource_status` enum, `resources.status`, `maintenance_until`, `resources_sync_active` trigger, `court-media` bucket + storage policies, `log_resource_audit`.
 
 **Routes:** `/courts`, `/courts/new`, `/courts/[id]/edit`
 
@@ -145,9 +154,9 @@ Court/resource CRUD on `resources` table: capacity, surface, dimensions, photos 
 ## Module 8: Slot Management
 
 **Status:** Next up  
-**Depends on:** Module 7
+**Depends on:** Module 7 (verified)
 
-Slot generation algorithm, pricing rules, slot holds, availability API.
+Slot generation, templates, calendar views, bulk operations, `validate_slot_window` RPC, Realtime on `slots`.
 
 ---
 

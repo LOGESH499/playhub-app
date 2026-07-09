@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
-import { isSupabaseConfigured } from "@/lib/supabase/client";
+import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { ACTIVE_TENANT_COOKIE } from "@/lib/auth/constants";
 import { resolveAppRole, type AppRole } from "@/lib/auth/roles";
 import type { Tables } from "@/types/database.types";
