@@ -9,6 +9,11 @@ import {
 import type { BookingWithRelations } from "@/features/bookings/lib/types";
 import { BookingInvoice } from "@/features/bookings/components/booking-invoice";
 import { BookingQr } from "@/features/bookings/components/booking-qr";
+import { BookingPaymentPanel } from "@/features/payments";
+import type {
+  PaymentTransactionWithRelations,
+  RefundRequestWithRelations,
+} from "@/features/payments/lib/types";
 import { BOOKING_STATUS_LABELS } from "@/lib/validators/booking.schema";
 import { BOOKING_STATUS_VARIANTS } from "@/features/bookings/lib/status";
 import { formatTimeRange } from "@/features/slots/lib/calendar";
@@ -23,6 +28,8 @@ interface BookingDetailPanelProps {
   confirmed?: boolean;
   backHref?: string;
   listHref?: string;
+  transactions?: PaymentTransactionWithRelations[];
+  refunds?: RefundRequestWithRelations[];
 }
 
 export function BookingDetailPanel({
@@ -31,6 +38,8 @@ export function BookingDetailPanel({
   confirmed,
   backHref,
   listHref = "/bookings",
+  transactions = [],
+  refunds = [],
 }: BookingDetailPanelProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -126,8 +135,15 @@ export function BookingDetailPanel({
 
       <div className="grid gap-6 lg:grid-cols-2">
         <BookingQr confirmationCode={code} bookingId={booking.id} />
-        <BookingInvoice booking={booking} />
+        <BookingInvoice booking={booking} transactions={transactions} />
       </div>
+
+      <BookingPaymentPanel
+        booking={booking}
+        transactions={transactions}
+        refunds={refunds}
+        canManage={canManage}
+      />
     </div>
   );
 }

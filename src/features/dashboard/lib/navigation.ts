@@ -5,6 +5,7 @@ import {
   Building2,
   CalendarClock,
   CalendarDays,
+  CreditCard,
   Dumbbell,
   FileText,
   GraduationCap,
@@ -102,6 +103,11 @@ export function getDashboardNavigation(appRole: AppRole): NavSection[] {
           title: "Academies",
           href: "/academies",
           icon: GraduationCap,
+        },
+        {
+          title: "Payments",
+          href: "/payments",
+          icon: CreditCard,
         },
         {
           title: "Members",

@@ -415,7 +415,33 @@ src/lib/validators/portal.schema.ts
 
 ---
 
-## Module 12: Membership (Next)
+## Module 12: Payments ✅
+
+- [x] Migration `20260709000022_payments.sql` — `payment_transactions`, `refund_requests`, enums
+- [x] RPCs: `record_booking_payment`, `request_booking_refund`, `process_refund`, enhanced `record_fee_payment`
+- [x] Offline methods: cash, UPI, card (manual), offline
+- [x] Payment status sync on bookings; invoice transaction lines
+- [x] Refund request flow (customer submit, admin approve/reject)
+- [x] Transaction history, stats, revenue-by-method reports
+- [x] Routes: `/payments`, `/payments/reports`, `/payments/refunds`
+- [x] Booking detail payment panel (staff record + customer refund)
+- [x] Verification script `scripts/verify-module-12.sql`
+
+**Files:**
+
+```
+src/features/payments/
+  actions/payment.actions.ts
+  components/  — record payment, refunds, transactions, reports
+  lib/queries.ts, types.ts
+src/app/(dashboard)/(shell)/payments/
+supabase/migrations/20260709000022_payments.sql
+src/lib/validators/payment.schema.ts
+```
+
+---
+
+## Module 13: Membership (Next)
 
 - [ ] Package purchase flow and credit deduction on booking
 

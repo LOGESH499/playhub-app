@@ -209,7 +209,10 @@ export function BatchDetailPanel({
                         disabled={isPending}
                         onClick={() => {
                           startTransition(async () => {
-                            await recordFeePaymentAction({ feeId: fee.id });
+                            await recordFeePaymentAction({
+                              feeId: fee.id,
+                              paymentMethod: "offline",
+                            });
                           });
                         }}
                       >

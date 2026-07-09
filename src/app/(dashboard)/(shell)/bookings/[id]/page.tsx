@@ -9,6 +9,10 @@ import {
   canManageBookings,
   getBookingById,
 } from "@/features/bookings/lib/queries";
+import {
+  getBookingRefundRequests,
+  getBookingTransactions,
+} from "@/features/payments/lib/queries";
 
 export const dynamic = "force-dynamic";
 
@@ -42,6 +46,11 @@ export default async function BookingDetailPage({
 
   if (!booking) notFound();
 
+  const [transactions, refunds] = await Promise.all([
+    getBookingTransactions(id),
+    getBookingRefundRequests(id),
+  ]);
+
   const canManage = canManageBookings(context.appRole);
   const confirmed = raw.confirmed === "1";
 
@@ -54,6 +63,8 @@ export default async function BookingDetailPage({
         booking={booking}
         canManage={canManage}
         confirmed={confirmed}
+        transactions={transactions}
+        refunds={refunds}
       />
     </BookingsLiveShell>
   );

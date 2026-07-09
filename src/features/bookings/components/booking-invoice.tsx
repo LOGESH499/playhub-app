@@ -1,14 +1,17 @@
 import type { BookingWithRelations } from "@/features/bookings/lib/types";
+import type { PaymentTransactionWithRelations } from "@/features/payments/lib/types";
 import { BOOKING_STATUS_LABELS, PAYMENT_STATUS_LABELS } from "@/lib/validators/booking.schema";
+import { PAYMENT_METHOD_LABELS } from "@/lib/validators/payment.schema";
 import { formatTimeRange } from "@/features/slots/lib/calendar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 
 interface BookingInvoiceProps {
   booking: BookingWithRelations;
+  transactions?: PaymentTransactionWithRelations[];
 }
 
-export function BookingInvoice({ booking }: BookingInvoiceProps) {
+export function BookingInvoice({ booking, transactions = [] }: BookingInvoiceProps) {
   const subtotal = Number(booking.amount);
   const tax = 0;
   const total = subtotal + tax;
@@ -60,6 +63,20 @@ export function BookingInvoice({ booking }: BookingInvoiceProps) {
         <p className="text-xs text-muted-foreground">
           Payment: {PAYMENT_STATUS_LABELS[booking.payment_status]} · {booking.currency}
         </p>
+        {transactions.length > 0 && (
+          <div className="space-y-1 border-t border-border pt-3 text-xs">
+            <p className="font-medium">Payment records</p>
+            {transactions
+              .filter((tx) => tx.direction === "payment")
+              .map((tx) => (
+                <p key={tx.id} className="text-muted-foreground">
+                  {PAYMENT_METHOD_LABELS[tx.payment_method]} · ₹
+                  {Number(tx.amount).toLocaleString("en-IN")}
+                  {tx.reference ? ` · ${tx.reference}` : ""}
+                </p>
+              ))}
+          </div>
+        )}
       </CardContent>
     </Card>
   );

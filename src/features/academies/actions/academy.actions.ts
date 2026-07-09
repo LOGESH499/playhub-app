@@ -517,6 +517,8 @@ export async function recordFeePaymentAction(
   const { error } = await supabase.rpc("record_fee_payment", {
     p_fee_id: parsed.data.feeId,
     p_notes: parsed.data.notes ?? null,
+    p_payment_method: parsed.data.paymentMethod,
+    p_reference: parsed.data.reference ?? null,
   });
 
   if (error) return { error: error.message };

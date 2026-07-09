@@ -6,6 +6,10 @@ import {
   BookingsLiveShell,
 } from "@/features/bookings";
 import { getBookingById } from "@/features/bookings/lib/queries";
+import {
+  getBookingRefundRequests,
+  getBookingTransactions,
+} from "@/features/payments/lib/queries";
 
 export const dynamic = "force-dynamic";
 
@@ -35,6 +39,11 @@ export default async function PortalBookingDetailPage({
   const booking = await getBookingById(id);
   if (!booking) notFound();
 
+  const [transactions, refunds] = await Promise.all([
+    getBookingTransactions(id),
+    getBookingRefundRequests(id),
+  ]);
+
   return (
     <BookingsLiveShell userId={context.userId}>
       <BookingDetailPanel
@@ -42,6 +51,8 @@ export default async function PortalBookingDetailPage({
         canManage={false}
         backHref="/portal/bookings"
         listHref="/portal/bookings"
+        transactions={transactions}
+        refunds={refunds}
       />
     </BookingsLiveShell>
   );

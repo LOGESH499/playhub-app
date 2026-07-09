@@ -31,15 +31,15 @@ All development follows [docs/project-rules.md](./docs/project-rules.md):
 [████████████████████] Module 9  Real-Time Booking             ✅ VERIFIED
 [████████████████████] Module 10 Academy Management            ✅ VERIFIED
 [████████████████████] Module 11 Customer Portal                 ✅ VERIFIED
-[                    ] Module 12 Membership
-[                    ] Module 13 Payment
+[████████████████████] Module 12 Payments                          ✅ VERIFIED
+[                    ] Module 13 Membership
 [                    ] Module 14 Notifications
 [                    ] Module 15 Reports
 [                    ] Module 16 Admin Panel
 [                    ] Module 17 Deployment
 ```
 
-**Overall:** 11 / 17 modules verified (65%) — Module 12 next
+**Overall:** 12 / 17 modules verified (71%) — Module 13 next
 
 ---
 
@@ -205,21 +205,25 @@ Customer dashboard, profile, bookings (upcoming/history), academy enrollments, m
 
 ---
 
-## Module 12: Membership
+## Module 12: Payments
+
+**Status:** ✅ Verified  
+**Depends on:** Modules 9, 11
+
+Offline payment ledger (no Stripe): cash, UPI, card (manual), offline recording. Payment status on bookings, invoices with transaction lines, refund requests, transaction history, revenue reports, admin refund controls.
+
+**Routes:** `/payments`, `/payments/reports`, `/payments/refunds` — plus payment panels on booking detail pages
+
+**Verification:** `scripts/verify-module-12.sql`
+
+---
+
+## Module 13: Membership
 
 **Status:** Planned  
 **Depends on:** Module 9
 
 Membership packages, user packages, credit deduction on booking.
-
----
-
-## Module 13: Payment
-
-**Status:** Planned  
-**Depends on:** Module 12
-
-Manual payment recording (v1), payment status on bookings, future gateway prep.
 
 ---
 
@@ -235,9 +239,9 @@ In-app notifications, Realtime delivery, booking confirmation email.
 ## Module 15: Reports
 
 **Status:** Planned  
-**Depends on:** Modules 9, 10
+**Depends on:** Modules 9, 10, 12
 
-Dashboard analytics, Recharts, CSV export.
+Venue occupancy, academy performance, payment revenue dashboards.
 
 ---
 

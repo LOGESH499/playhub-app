@@ -126,6 +126,8 @@ export const generateFeesSchema = z.object({
 export const recordFeePaymentSchema = z.object({
   feeId: z.string().uuid(),
   notes: z.string().max(500).optional(),
+  paymentMethod: z.enum(["cash", "upi", "card", "offline"]).default("offline"),
+  reference: z.string().max(120).optional(),
 });
 
 export const programListFiltersSchema = z.object({

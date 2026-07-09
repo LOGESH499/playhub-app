@@ -1647,6 +1647,7 @@ export type Database = {
           paid_at: string | null;
           recorded_by: string | null;
           notes: string | null;
+          payment_method: Database["public"]["Enums"]["payment_method"] | null;
           created_at: string;
           updated_at: string;
         };
@@ -1661,6 +1662,7 @@ export type Database = {
           paid_at?: string | null;
           recorded_by?: string | null;
           notes?: string | null;
+          payment_method?: Database["public"]["Enums"]["payment_method"] | null;
           created_at?: string;
           updated_at?: string;
         };
@@ -1675,6 +1677,112 @@ export type Database = {
           paid_at?: string | null;
           recorded_by?: string | null;
           notes?: string | null;
+          payment_method?: Database["public"]["Enums"]["payment_method"] | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      payment_transactions: {
+        Row: {
+          id: string;
+          tenant_id: string;
+          entity_type: Database["public"]["Enums"]["payment_entity_type"];
+          entity_id: string;
+          booking_id: string | null;
+          user_id: string | null;
+          amount: number;
+          currency: string;
+          payment_method: Database["public"]["Enums"]["payment_method"];
+          direction: string;
+          status: Database["public"]["Enums"]["payment_status"];
+          reference: string | null;
+          recorded_by: string | null;
+          notes: string | null;
+          metadata: Json;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          tenant_id: string;
+          entity_type: Database["public"]["Enums"]["payment_entity_type"];
+          entity_id: string;
+          booking_id?: string | null;
+          user_id?: string | null;
+          amount: number;
+          currency?: string;
+          payment_method: Database["public"]["Enums"]["payment_method"];
+          direction?: string;
+          status?: Database["public"]["Enums"]["payment_status"];
+          reference?: string | null;
+          recorded_by?: string | null;
+          notes?: string | null;
+          metadata?: Json;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          tenant_id?: string;
+          entity_type?: Database["public"]["Enums"]["payment_entity_type"];
+          entity_id?: string;
+          booking_id?: string | null;
+          user_id?: string | null;
+          amount?: number;
+          currency?: string;
+          payment_method?: Database["public"]["Enums"]["payment_method"];
+          direction?: string;
+          status?: Database["public"]["Enums"]["payment_status"];
+          reference?: string | null;
+          recorded_by?: string | null;
+          notes?: string | null;
+          metadata?: Json;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
+      refund_requests: {
+        Row: {
+          id: string;
+          tenant_id: string;
+          booking_id: string;
+          user_id: string;
+          amount: number;
+          reason: string | null;
+          status: Database["public"]["Enums"]["refund_status"];
+          reviewed_by: string | null;
+          reviewed_at: string | null;
+          review_notes: string | null;
+          payment_transaction_id: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          tenant_id: string;
+          booking_id: string;
+          user_id: string;
+          amount: number;
+          reason?: string | null;
+          status?: Database["public"]["Enums"]["refund_status"];
+          reviewed_by?: string | null;
+          reviewed_at?: string | null;
+          review_notes?: string | null;
+          payment_transaction_id?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          tenant_id?: string;
+          booking_id?: string;
+          user_id?: string;
+          amount?: number;
+          reason?: string | null;
+          status?: Database["public"]["Enums"]["refund_status"];
+          reviewed_by?: string | null;
+          reviewed_at?: string | null;
+          review_notes?: string | null;
+          payment_transaction_id?: string | null;
           created_at?: string;
           updated_at?: string;
         };
@@ -2257,8 +2365,46 @@ export type Database = {
         Args: {
           p_fee_id: string;
           p_notes?: string | null;
+          p_payment_method?: Database["public"]["Enums"]["payment_method"];
+          p_reference?: string | null;
         };
         Returns: Database["public"]["Tables"]["fee_records"]["Row"];
+      };
+      record_booking_payment: {
+        Args: {
+          p_booking_id: string;
+          p_amount: number;
+          p_payment_method: Database["public"]["Enums"]["payment_method"];
+          p_reference?: string | null;
+          p_notes?: string | null;
+        };
+        Returns: Database["public"]["Tables"]["payment_transactions"]["Row"];
+      };
+      request_booking_refund: {
+        Args: {
+          p_booking_id: string;
+          p_amount: number;
+          p_reason?: string | null;
+        };
+        Returns: Database["public"]["Tables"]["refund_requests"]["Row"];
+      };
+      process_refund: {
+        Args: {
+          p_refund_id: string;
+          p_action: string;
+          p_review_notes?: string | null;
+        };
+        Returns: Database["public"]["Tables"]["refund_requests"]["Row"];
+      };
+      log_payment_audit: {
+        Args: {
+          p_tenant_id: string;
+          p_action: string;
+          p_entity_id: string;
+          p_old_values?: Json | null;
+          p_new_values?: Json | null;
+        };
+        Returns: undefined;
       };
       toggle_user_favorite: {
         Args: {
@@ -2389,6 +2535,9 @@ export type Database = {
         | "cancelled";
       member_status: "active" | "invited" | "suspended";
       payment_status: "unpaid" | "paid" | "refunded" | "partial";
+      payment_method: "cash" | "upi" | "card" | "offline";
+      payment_entity_type: "booking" | "academy_fee" | "membership";
+      refund_status: "requested" | "approved" | "rejected" | "processed";
       waitlist_status: "waiting" | "notified" | "expired" | "fulfilled";
       attendance_status: "present" | "absent" | "late" | "excused";
       tenant_status: "active" | "suspended";

@@ -221,6 +221,19 @@ supabase db execute -f scripts/verify-module-10.sql
 supabase db execute -f scripts/verify-module-11.sql
 ```
 
+### Module 12 — Payments
+
+- Offline payment ledger — cash, UPI, card (manual entry), offline (no Stripe)
+- Staff record payments on bookings; payment status (`unpaid` / `partial` / `paid` / `refunded`)
+- Customer refund requests; admin approve/reject with offline refund ledger entry
+- Transaction history, revenue stats, reports by payment method
+- Academy fee payments linked to the same ledger
+- Routes: `/payments`, `/payments/reports`, `/payments/refunds`
+
+```bash
+supabase db execute -f scripts/verify-module-12.sql
+```
+
 ### Enterprise UI System
 
 Premium SaaS design layer (Linear / Stripe / Vercel inspired):
