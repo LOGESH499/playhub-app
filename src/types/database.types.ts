@@ -1593,6 +1593,93 @@ export type Database = {
           },
         ];
       };
+      enrollment_progress: {
+        Row: {
+          id: string;
+          tenant_id: string;
+          enrollment_id: string;
+          skill_level: string | null;
+          completion_percent: number;
+          milestones: Json;
+          performance_notes: string | null;
+          attendance_rate: number | null;
+          updated_by: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          tenant_id: string;
+          enrollment_id: string;
+          skill_level?: string | null;
+          completion_percent?: number;
+          milestones?: Json;
+          performance_notes?: string | null;
+          attendance_rate?: number | null;
+          updated_by?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          tenant_id?: string;
+          enrollment_id?: string;
+          skill_level?: string | null;
+          completion_percent?: number;
+          milestones?: Json;
+          performance_notes?: string | null;
+          attendance_rate?: number | null;
+          updated_by?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      fee_records: {
+        Row: {
+          id: string;
+          tenant_id: string;
+          enrollment_id: string;
+          amount: number;
+          period_label: string;
+          due_date: string | null;
+          status: string;
+          paid_at: string | null;
+          recorded_by: string | null;
+          notes: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          tenant_id: string;
+          enrollment_id: string;
+          amount: number;
+          period_label: string;
+          due_date?: string | null;
+          status?: string;
+          paid_at?: string | null;
+          recorded_by?: string | null;
+          notes?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          tenant_id?: string;
+          enrollment_id?: string;
+          amount?: number;
+          period_label?: string;
+          due_date?: string | null;
+          status?: string;
+          paid_at?: string | null;
+          recorded_by?: string | null;
+          notes?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
       sports: {
         Row: {
           id: string;
@@ -2051,6 +2138,64 @@ export type Database = {
           p_enrolled_by?: string;
         };
         Returns: Database["public"]["Tables"]["enrollments"]["Row"];
+      };
+      log_academy_audit: {
+        Args: {
+          p_tenant_id: string;
+          p_action: string;
+          p_entity_id: string;
+          p_old_values?: Json | null;
+          p_new_values?: Json | null;
+        };
+        Returns: undefined;
+      };
+      generate_batch_sessions: {
+        Args: {
+          p_batch_id: string;
+          p_from_date?: string | null;
+          p_to_date?: string | null;
+        };
+        Returns: number;
+      };
+      upsert_session_attendance: {
+        Args: {
+          p_session_id: string;
+          p_records: Json;
+        };
+        Returns: number;
+      };
+      update_enrollment_status: {
+        Args: {
+          p_enrollment_id: string;
+          p_status: Database["public"]["Enums"]["enrollment_status"];
+          p_notes?: string | null;
+        };
+        Returns: Database["public"]["Tables"]["enrollments"]["Row"];
+      };
+      upsert_enrollment_progress: {
+        Args: {
+          p_enrollment_id: string;
+          p_skill_level?: string | null;
+          p_completion_percent?: number | null;
+          p_milestones?: Json | null;
+          p_performance_notes?: string | null;
+        };
+        Returns: Database["public"]["Tables"]["enrollment_progress"]["Row"];
+      };
+      generate_batch_fees: {
+        Args: {
+          p_batch_id: string;
+          p_period_label: string;
+          p_due_date?: string | null;
+        };
+        Returns: number;
+      };
+      record_fee_payment: {
+        Args: {
+          p_fee_id: string;
+          p_notes?: string | null;
+        };
+        Returns: Database["public"]["Tables"]["fee_records"]["Row"];
       };
       expire_slot_holds: {
         Args: Record<PropertyKey, never>;

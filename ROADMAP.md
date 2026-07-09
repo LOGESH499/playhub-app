@@ -29,7 +29,7 @@ All development follows [docs/project-rules.md](./docs/project-rules.md):
 [████████████████████] Module 7  Court Management               ✅ VERIFIED
 [████████████████████] Module 8  Slot Management               ✅ VERIFIED
 [████████████████████] Module 9  Real-Time Booking             ✅ VERIFIED
-[                    ] Module 10 Academy Management
+[████████████████████] Module 10 Academy Management            ✅ VERIFIED
 [                    ] Module 11 Coach Management
 [                    ] Module 12 Membership
 [                    ] Module 13 Payment
@@ -39,7 +39,7 @@ All development follows [docs/project-rules.md](./docs/project-rules.md):
 [                    ] Module 17 Deployment
 ```
 
-**Overall:** 9 / 17 modules verified (53%) — Module 10 next
+**Overall:** 10 / 17 modules verified (59%) — Module 11 next
 
 ---
 
@@ -181,10 +181,14 @@ Atomic `book_slot` RPC, slot holds, waitlist, reschedule/cancel, notifications, 
 
 ## Module 10: Academy Management
 
-**Status:** Planned  
-**Depends on:** Module 2
+**Status:** ✅ Verified  
+**Depends on:** Module 2 (verified)
 
-Programs, batches, schedules, enrollment, public academy pages.
+Programs, batches, schedules, enrollments, coach allocation, attendance, progress, offline fees, reports. Realtime on `attendance_records`.
+
+**Routes:** `/academies`, `/academies/new`, `/academies/[id]`, `/academies/reports`, batch & session routes
+
+**Verification:** `scripts/verify-module-10.sql`
 
 ---
 

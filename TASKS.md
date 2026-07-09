@@ -19,8 +19,8 @@ Track module-by-module implementation progress.
 | 7 | Court Management | ✅ Verified | 2026-07-09 |
 | 8 | Slot Management | ✅ Verified | 2026-07-09 |
 | 9 | Real-Time Booking | ✅ Verified | 2026-07-09 |
-| 10 | Academy Management | ⬜ Next | — |
-| 11 | Coach Management | ⬜ Pending | — |
+| 10 | Academy Management | ✅ Verified | 2026-07-09 |
+| 11 | Coach Management | ⬜ Next | — |
 | 12 | Membership | ⬜ Pending | — |
 | 13 | Payment | ⬜ Pending | — |
 | 14 | Notifications | ⬜ Pending | — |
@@ -366,10 +366,34 @@ src/lib/validators/booking.schema.ts
 
 ---
 
-## Module 10: Academy Management (Next)
+## Module 10: Academy Management ✅
 
-- [ ] Academy programs and enrollment UI
-- [ ] Coach assignment integration
+- [x] Migration `20260709000020_academy_management.sql` — fees, progress, RPCs, audit
+- [x] Programs & batches CRUD, training schedule editor, session generation
+- [x] Coach allocation, enrollments, attendance sheet, progress tracking
+- [x] Offline fee generation and payment recording
+- [x] Admin reports, student/coach role views, realtime attendance
+- [x] Verification script `scripts/verify-module-10.sql`
+
+**Files:**
+
+```
+src/features/academies/
+  actions/academy.actions.ts
+  components/  — program/batch forms, attendance, coaches, fees, reports
+  hooks/use-attendance-realtime.ts
+  lib/queries.ts
+src/app/(dashboard)/(shell)/academies/
+supabase/migrations/20260709000020_academy_management.sql
+src/lib/validators/academy.schema.ts
+```
+
+---
+
+## Module 11: Coach Management (Next)
+
+- [ ] Coach-scoped session calendar views
+- [ ] Session notes and enhanced coach tablet UX
 
 ---
 

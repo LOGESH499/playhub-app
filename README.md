@@ -196,6 +196,19 @@ supabase db execute -f scripts/verify-module-8.sql
 supabase db execute -f scripts/verify-module-9.sql
 ```
 
+### Module 10 — Academy Management
+
+- Programs (academies), batches, training schedules, coach allocation
+- Enrollments via `create_enrollment` RPC, attendance marking, progress & performance
+- Offline fee records (generate + mark paid, no payment gateway)
+- Role-based views: admin, coach, student
+- Realtime attendance updates on `attendance_records`
+- Routes: `/academies`, `/academies/new`, `/academies/[id]`, batch & session pages, `/academies/reports`
+
+```bash
+supabase db execute -f scripts/verify-module-10.sql
+```
+
 ### Enterprise UI System
 
 Premium SaaS design layer (Linear / Stripe / Vercel inspired):
@@ -241,9 +254,10 @@ playhub/
 │   ├── features/courts/       # Court & resource management
 │   ├── features/slots/        # Slot management
 │   ├── features/bookings/     # Booking engine
+│   ├── features/academies/    # Academy management
 │   └── lib/                   # Supabase, validators, auth helpers
 ├── src/components/ui/         # Shadcn UI primitives
-├── supabase/migrations/       # 19 SQL migrations
+├── supabase/migrations/       # 20 SQL migrations
 ├── supabase/seed.sql     # Sports + demo venues
 ├── DATABASE.md           # Database reference & ERD
 ├── docs/                 # Planning documentation

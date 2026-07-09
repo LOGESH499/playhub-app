@@ -84,8 +84,6 @@ export function getDashboardNavigation(appRole: AppRole): NavSection[] {
           title: "Academies",
           href: "/academies",
           icon: GraduationCap,
-          disabled: true,
-          badge: "Soon",
         },
         {
           title: "Members",
