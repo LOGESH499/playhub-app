@@ -1740,6 +1740,33 @@ export type Database = {
         };
         Relationships: [];
       };
+      analytics_snapshots: {
+        Row: {
+          id: string;
+          tenant_id: string;
+          snapshot: Json;
+          period_start: string;
+          period_end: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          tenant_id: string;
+          snapshot?: Json;
+          period_start: string;
+          period_end: string;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          tenant_id?: string;
+          snapshot?: Json;
+          period_start?: string;
+          period_end?: string;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
       refund_requests: {
         Row: {
           id: string;
@@ -2405,6 +2432,14 @@ export type Database = {
           p_new_values?: Json | null;
         };
         Returns: undefined;
+      };
+      get_enterprise_analytics: {
+        Args: {
+          p_tenant_id: string;
+          p_start_date?: string;
+          p_end_date?: string;
+        };
+        Returns: Json;
       };
       toggle_user_favorite: {
         Args: {

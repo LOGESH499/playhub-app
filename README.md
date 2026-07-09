@@ -234,6 +234,19 @@ supabase db execute -f scripts/verify-module-11.sql
 supabase db execute -f scripts/verify-module-12.sql
 ```
 
+### Module 13 — Enterprise Analytics
+
+- Unified analytics hub at `/reports` with date-range filters
+- Venue utilization, revenue trends, booking trends, peak hours, sports popularity
+- Academy performance, coach attendance reports, customer growth
+- CSV, Excel, and PDF exports per section or full report
+- Dashboard widgets with realtime refresh on bookings & payments
+- RPC `get_enterprise_analytics` for server-side aggregation
+
+```bash
+supabase db execute -f scripts/verify-module-13.sql
+```
+
 ### Enterprise UI System
 
 Premium SaaS design layer (Linear / Stripe / Vercel inspired):

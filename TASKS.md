@@ -441,7 +441,31 @@ src/lib/validators/payment.schema.ts
 
 ---
 
-## Module 13: Membership (Next)
+## Module 13: Enterprise Analytics ✅
+
+- [x] Migration `20260709000023_enterprise_analytics.sql` — `get_enterprise_analytics` RPC, `analytics_snapshots`
+- [x] Venue utilization, revenue, booking trends, peak hours, sports popularity
+- [x] Academy reports, coach reports, customer growth
+- [x] Recharts dashboards at `/reports`
+- [x] Exports: CSV, Excel (xlsx), PDF
+- [x] Dashboard analytics widgets with realtime refresh
+- [x] Verification script `scripts/verify-module-13.sql`
+
+**Files:**
+
+```
+src/features/analytics/
+  components/  — charts, exports, filters, widgets
+  hooks/use-analytics-realtime.ts
+  lib/queries.ts, export.ts, types.ts
+src/app/(dashboard)/(shell)/reports/
+supabase/migrations/20260709000023_enterprise_analytics.sql
+src/lib/validators/analytics.schema.ts
+```
+
+---
+
+## Module 14: Membership (Next)
 
 - [ ] Package purchase flow and credit deduction on booking
 

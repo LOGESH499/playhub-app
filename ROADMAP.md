@@ -32,14 +32,14 @@ All development follows [docs/project-rules.md](./docs/project-rules.md):
 [████████████████████] Module 10 Academy Management            ✅ VERIFIED
 [████████████████████] Module 11 Customer Portal                 ✅ VERIFIED
 [████████████████████] Module 12 Payments                          ✅ VERIFIED
-[                    ] Module 13 Membership
-[                    ] Module 14 Notifications
-[                    ] Module 15 Reports
+[████████████████████] Module 13 Enterprise Analytics              ✅ VERIFIED
+[                    ] Module 14 Membership
+[                    ] Module 15 Notifications
 [                    ] Module 16 Admin Panel
 [                    ] Module 17 Deployment
 ```
 
-**Overall:** 12 / 17 modules verified (71%) — Module 13 next
+**Overall:** 13 / 17 modules verified (76%) — Module 14 next
 
 ---
 
@@ -218,7 +218,20 @@ Offline payment ledger (no Stripe): cash, UPI, card (manual), offline recording.
 
 ---
 
-## Module 13: Membership
+## Module 13: Enterprise Analytics
+
+**Status:** ✅ Verified  
+**Depends on:** Modules 9, 10, 12
+
+Venue utilization, revenue, booking trends, peak hours, sports popularity, academy & coach reports, customer growth. Charts, CSV/Excel/PDF exports, dashboard widgets, realtime analytics via Supabase Realtime.
+
+**Routes:** `/reports`
+
+**Verification:** `scripts/verify-module-13.sql`
+
+---
+
+## Module 14: Membership
 
 **Status:** Planned  
 **Depends on:** Module 9
@@ -227,7 +240,7 @@ Membership packages, user packages, credit deduction on booking.
 
 ---
 
-## Module 14: Notifications
+## Module 15: Notifications
 
 **Status:** Planned  
 **Depends on:** Module 9
@@ -238,10 +251,10 @@ In-app notifications, Realtime delivery, booking confirmation email.
 
 ## Module 15: Reports
 
-**Status:** Planned  
+**Status:** Merged into Module 13  
 **Depends on:** Modules 9, 10, 12
 
-Venue occupancy, academy performance, payment revenue dashboards.
+Enterprise analytics hub at `/reports` covers venue occupancy, revenue dashboards, and academy performance.
 
 ---
 

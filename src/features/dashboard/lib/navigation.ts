@@ -120,8 +120,6 @@ export function getDashboardNavigation(appRole: AppRole): NavSection[] {
           title: "Reports",
           href: "/reports",
           icon: BarChart3,
-          disabled: true,
-          badge: "Soon",
         },
       ],
     },

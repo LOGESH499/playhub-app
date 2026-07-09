@@ -9,6 +9,9 @@ import {
   RecentActivity,
   StatCards,
 } from "@/features/dashboard";
+import { AnalyticsDashboardWidgets } from "@/features/analytics";
+import { getAnalyticsWidgets } from "@/features/analytics/lib/queries";
+import { canManageOrganization } from "@/lib/auth/roles";
 import { PageHeader } from "@/components/layout/page-header";
 import { RoleBadge } from "@/features/organization";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -41,6 +44,10 @@ export default async function DashboardPage() {
   }
 
   const data = await getDashboardData(context);
+  const analyticsWidgets =
+    context.activeTenant && canManageOrganization(context.appRole)
+      ? await getAnalyticsWidgets()
+      : [];
 
   return (
     <div className="space-y-8">
@@ -55,6 +62,10 @@ export default async function DashboardPage() {
       />
 
       <StatCards stats={data.stats} />
+
+      {analyticsWidgets.length > 0 && (
+        <AnalyticsDashboardWidgets widgets={analyticsWidgets} />
+      )}
 
       <DashboardCharts stats={data.stats} calendarEvents={data.calendarEvents} />
 
