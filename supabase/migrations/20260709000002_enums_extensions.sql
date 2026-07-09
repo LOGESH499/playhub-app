@@ -13,7 +13,8 @@ CREATE TYPE public.sport_type AS ENUM (
   'squash',
   'basketball',
   'volleyball',
-  'swimming'
+  'swimming',
+  'running_track'
 );
 
 -- Academy program types

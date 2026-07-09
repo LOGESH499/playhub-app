@@ -2,6 +2,8 @@ import type { LucideIcon } from "lucide-react";
 import {
   BarChart3,
   Building2,
+import {
+  CalendarClock,
   CalendarDays,
   Dumbbell,
   GraduationCap,
@@ -68,6 +70,11 @@ export function getDashboardNavigation(appRole: AppRole): NavSection[] {
           title: "Courts",
           href: "/courts",
           icon: LayoutGrid,
+        },
+        {
+          title: "Slots",
+          href: "/slots",
+          icon: CalendarClock,
         },
         {
           title: "Bookings",

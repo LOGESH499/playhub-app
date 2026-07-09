@@ -1,8 +1,7 @@
 -- PLAYHUB Module 7: Court & Resource Management
 -- Idempotent: safe on fresh DB, partial failure retry, and already-migrated DB.
 -- Depends on: Module 5 (public.sports), Module 4 (public.resources)
-
-ALTER TYPE public.sport_type ADD VALUE IF NOT EXISTS 'running_track';
+-- Note: running_track enum value is added in 20260709000016_01_running_track_enum.sql
 
 -- ─── resource_status enum ───────────────────────────────────────────────────
 

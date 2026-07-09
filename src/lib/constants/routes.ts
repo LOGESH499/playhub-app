@@ -41,6 +41,7 @@ export function isProtectedRoute(pathname: string): boolean {
     pathname.startsWith("/sports") ||
     pathname.startsWith("/venues") ||
     pathname.startsWith("/courts") ||
+    pathname.startsWith("/slots") ||
     pathname.startsWith("/invite/")
   );
 }

@@ -737,6 +737,8 @@ export type Database = {
           buffer_minutes: number;
           peak_price: number | null;
           off_peak_price: number | null;
+          peak_start_time: string;
+          peak_end_time: string;
           default_slot_type: Database["public"]["Enums"]["slot_type"];
           valid_from: string;
           valid_until: string | null;
@@ -760,6 +762,8 @@ export type Database = {
           buffer_minutes?: number;
           peak_price?: number | null;
           off_peak_price?: number | null;
+          peak_start_time?: string;
+          peak_end_time?: string;
           default_slot_type?: Database["public"]["Enums"]["slot_type"];
           valid_from?: string;
           valid_until?: string | null;
@@ -783,6 +787,8 @@ export type Database = {
           buffer_minutes?: number;
           peak_price?: number | null;
           off_peak_price?: number | null;
+          peak_start_time?: string;
+          peak_end_time?: string;
           default_slot_type?: Database["public"]["Enums"]["slot_type"];
           valid_from?: string;
           valid_until?: string | null;
