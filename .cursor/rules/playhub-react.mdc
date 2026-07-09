@@ -1,0 +1,50 @@
+---
+description: PLAYHUB React and Next.js component patterns
+globs: "**/*.{tsx,ts}"
+alwaysApply: false
+---
+
+# PLAYHUB — React & Next.js Patterns
+
+## Server vs Client
+```tsx
+// ✅ Server Component (default) — data fetching, layouts, static content
+export default async function VenuePage({ params }: Props) {
+  const venue = await getVenue(params.id);
+  return <VenueDetails venue={venue} />;
+}
+
+// ✅ Client Component — only when needed
+"use client";
+export function SlotPicker({ slots }: { slots: Slot[] }) { ... }
+```
+
+## Feature modules
+```
+src/features/booking/
+  components/   # Feature-specific UI
+  hooks/        # useSlots, useBookingRealtime
+  actions/      # Server actions
+  index.ts      # Public exports only
+```
+
+## Components
+- Reuse `src/components/ui/` (Shadcn) before creating new primitives
+- Colocate feature components in `src/features/{name}/components/`
+- Export via `index.ts`; avoid deep imports across features
+
+## Forms
+```tsx
+"use client";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { bookingSchema } from "@/lib/validators/booking.schema";
+
+const form = useForm({ resolver: zodResolver(bookingSchema) });
+```
+
+## Performance
+- Paginate all lists; avoid fetching unbounded data
+- Use React Query for client cache (when module requires it)
+- Dynamic import heavy client libs (Leaflet, Recharts)
+- `export const dynamic = "force-dynamic"` only when cookies/auth required

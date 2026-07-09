@@ -1,0 +1,37 @@
+---
+description: PLAYHUB core stack, architecture, and development constraints
+alwaysApply: true
+---
+
+# PLAYHUB — Core Project Rules
+
+## Stack (mandatory)
+- TypeScript, Next.js App Router, Supabase (Auth, DB, Realtime, Storage)
+- Tailwind CSS, Shadcn UI, Zod, React Hook Form, Lucide Icons
+- Deploy target: Vercel Free + Supabase Free
+
+## Forbidden
+- Firebase, Clerk, AWS/Azure/GCP, paid third-party APIs
+
+## Architecture
+- Feature-based layout: `src/features/{module}/` (components, hooks, actions)
+- Shared UI in `src/components/`; domain logic in `src/lib/domain/`
+- Prefer Server Components; use `"use client"` only for interactivity
+- No duplicate code — extract reusable components and shared Zod schemas
+- Clean architecture + SOLID: single responsibility, depend on abstractions
+- Never remove working code; extend and refactor safely
+
+## Data & validation
+- Zod schemas in `src/lib/validators/`; share between forms and server actions
+- React Hook Form + `@hookform/resolvers/zod` for interactive forms
+- RLS is the authorization source of truth; validate on server always
+
+## UI/UX
+- Mobile-first, fully responsive, dark mode support (`next-themes` + CSS variables)
+- Loading, error, and empty states on all async UI
+
+## Process
+- Build module-by-module; never generate the entire app at once
+- After each module: update `TASKS.md`, `ROADMAP.md`, `README.md`, and relevant `/docs`
+- Explain major architecture decisions in code reviews and docs
+- Keep app deployable on Vercel after every module

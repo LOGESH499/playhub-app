@@ -1,0 +1,188 @@
+# PLAYHUB
+
+**Real-Time Multi-Sports Slot Booking & Academy Management Platform**
+
+PLAYHUB is a production-ready SaaS platform that enables sports venues, academies, and players to discover facilities, book time slots in real time, manage memberships, run coaching programs, and operate multi-sport businesses from a single dashboard.
+
+---
+
+## Development Progress
+
+| Module | Status |
+|--------|--------|
+| 1. Authentication (foundation) | ✅ Complete |
+| 2. Database | ✅ Complete |
+| 3. Auth + Organizations + Roles | ✅ Complete |
+| 4. Dashboard | ✅ Complete |
+| 5. Sports Management | ⬜ Next |
+
+See [ROADMAP.md](./ROADMAP.md) and [TASKS.md](./TASKS.md) for full module tracking.
+
+---
+
+## Vision
+
+To become the default operating system for grassroots and commercial sports facilities — from a single badminton court to a multi-sport complex with academies — using only free-tier, open-source technologies.
+
+## Supported Sports & Programs
+
+| Category | Sports / Programs |
+|----------|-------------------|
+| **Court & Field Sports** | Football, Cricket, Cricket Nets, Pickleball, Badminton, Tennis, Squash, Basketball, Volleyball |
+| **Aquatic** | Swimming (lanes & pool slots) |
+| **Academy Programs** | Running Academy, Football Academy, Cricket Academy, Tennis Academy, Swimming Academy, Badminton Academy |
+
+## Technology Stack
+
+| Layer | Technology |
+|-------|------------|
+| Framework | Next.js 16 (App Router) |
+| UI | React 19, TypeScript, Tailwind CSS, Shadcn UI |
+| Forms & Validation | React Hook Form, Zod |
+| Data Fetching | TanStack React Query (upcoming) |
+| Icons & Maps | Lucide Icons, Leaflet Maps (upcoming) |
+| Charts | Recharts (upcoming) |
+| Backend | Supabase (PostgreSQL, Auth, Realtime, Storage, Edge Functions) |
+| Deployment | Vercel (Free Tier) |
+
+**Constraints:** No paid APIs. No Firebase, Clerk, AWS, Azure, or Google Cloud. Everything runs on Supabase Free and Vercel Free.
+
+**Engineering standards:** See [Project Rules](./docs/project-rules.md) and `.cursor/rules/`.
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 20+
+- npm or pnpm
+- [Supabase](https://supabase.com) project (free tier)
+
+### Setup
+
+```bash
+git clone <repository-url>
+cd playhub
+npm install
+cp .env.example .env.local
+```
+
+Add your Supabase credentials to `.env.local`:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+```
+
+Apply migrations and seed data:
+
+```bash
+# Local (requires Docker + Supabase CLI)
+supabase start
+supabase db reset          # runs all migrations + seed.sql
+
+# Remote
+supabase link --project-ref your-project-ref
+supabase db push
+npm run db:seed            # optional demo venues
+```
+
+Regenerate TypeScript types after schema changes:
+
+```bash
+npm run supabase:types
+```
+
+Start the dev server:
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000).
+
+### Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server (Turbopack) |
+| `npm run build` | Production build |
+| `npm run start` | Start production server |
+| `npm run lint` | Run ESLint |
+| `npm run typecheck` | TypeScript check |
+| `npm run supabase:types` | Generate DB types from local Supabase |
+| `npm run db:push` | Push migrations to linked Supabase project |
+| `npm run db:reset` | Reset local DB (migrations + seed) |
+| `npm run db:seed` | Run seed.sql on linked project |
+
+## Current Features
+
+### Module 1 — Authentication
+- Email/password, magic link, password reset
+- Protected routes, profile management
+
+### Module 2 — Database
+- 26-table multi-tenant PostgreSQL schema
+- Row Level Security on all tables
+- Atomic `create_booking()` RPC
+- Sport & academy templates seeded
+- See [DATABASE.md](./DATABASE.md) for full reference
+
+### Module 3 — Auth, Organizations & Roles
+- React Hook Form + Zod on all auth forms
+- Multi-tenant context: organizations, tenant switcher, invite acceptance
+- Roles: Super Admin, Venue Admin, Coach, Customer
+- Platform admin area (`/platform`), enhanced middleware
+- Email verification gate + resend verification
+
+### Module 4 — Dashboard
+- Sidebar + top nav responsive shell
+- Dark/light/system theme
+- KPI statistics, recent activity, calendar, notifications panel
+- Role-aware navigation and data queries
+
+### Module 5 — Sports Management (next)
+- Sport templates and landing pages
+
+## Documentation
+
+| Resource | Description |
+|----------|-------------|
+| [DATABASE.md](./DATABASE.md) | Schema, ERD, migrations, RLS, setup |
+| [Project Rules](./docs/project-rules.md) | **Mandatory** engineering standards |
+| [ROADMAP.md](./ROADMAP.md) | Module-by-module delivery plan |
+| [TASKS.md](./TASKS.md) | Detailed task checklists |
+| [/docs](./docs/README.md) | Architecture & planning docs |
+
+## Project Structure
+
+```
+playhub/
+├── src/
+│   ├── app/              # Next.js App Router pages
+│   ├── components/       # Shared UI (Shadcn-style)
+│   ├── features/auth/         # Authentication
+│   ├── features/dashboard/    # Dashboard shell & widgets
+│   ├── features/organization/ # Tenants, roles, onboarding
+│   └── lib/                   # Supabase, validators, auth helpers
+├── src/components/ui/         # Shadcn UI primitives
+├── supabase/migrations/       # 13 SQL migrations
+├── supabase/seed.sql     # Sports + demo venues
+├── DATABASE.md           # Database reference & ERD
+├── docs/                 # Planning documentation
+├── TASKS.md
+└── ROADMAP.md
+```
+
+## Deploy on Vercel
+
+1. Push to GitHub
+2. Import project in [Vercel](https://vercel.com)
+3. Set environment variables (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `NEXT_PUBLIC_APP_URL`)
+4. Deploy
+
+The app builds successfully without Supabase env vars (dashboard shows a configuration notice).
+
+## License
+
+TBD — to be defined before public release.
