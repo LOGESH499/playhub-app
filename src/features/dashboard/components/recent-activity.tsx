@@ -2,6 +2,7 @@ import { Activity } from "lucide-react";
 import { formatRelativeTime } from "@/features/dashboard/lib/format";
 import type { ActivityItem } from "@/features/dashboard/lib/types";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { StatusState } from "@/components/layout/status-state";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface RecentActivityProps {
@@ -10,8 +11,8 @@ interface RecentActivityProps {
 
 const TYPE_COLORS: Record<ActivityItem["type"], string> = {
   booking: "bg-primary/15 text-primary",
-  audit: "bg-amber-500/15 text-amber-700 dark:text-amber-400",
-  notification: "bg-blue-500/15 text-blue-700 dark:text-blue-400",
+  audit: "bg-warning/15 text-warning",
+  notification: "bg-info/15 text-info",
   system: "bg-muted text-muted-foreground",
 };
 
@@ -26,14 +27,16 @@ export function RecentActivity({ items }: RecentActivityProps) {
       </CardHeader>
       <CardContent>
         {items.length === 0 ? (
-          <p className="py-8 text-center text-sm text-muted-foreground">
-            No recent activity yet. Bookings and updates will appear here.
-          </p>
+          <StatusState
+            title="No recent activity"
+            description="Bookings and updates will appear here."
+            className="min-h-40 border-dashed shadow-none"
+          />
         ) : (
           <ScrollArea className="h-[280px] pr-4">
             <ul className="space-y-4">
               {items.map((item) => (
-                <li key={item.id} className="flex gap-3">
+                <li key={item.id} className="interactive-list-item flex gap-3 p-2">
                   <div
                     className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-medium capitalize ${TYPE_COLORS[item.type]}`}
                   >

@@ -31,7 +31,7 @@ export function PlatformSidebar() {
   const pathname = usePathname();
 
   return (
-    <nav className="space-y-1">
+    <nav className="rounded-xl border border-border/70 bg-card p-2 shadow-sm">
       {NAV.map((item) => {
         const active = item.exact
           ? pathname === item.href
@@ -42,10 +42,10 @@ export function PlatformSidebar() {
             key={item.href}
             href={item.href}
             className={cn(
-              "flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-colors",
+              "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors focus-ring",
               active
-                ? "bg-primary/10 font-medium text-primary"
-                : "text-muted-foreground hover:bg-accent hover:text-foreground"
+                ? "bg-accent text-accent-foreground shadow-xs"
+                : "text-muted-foreground hover:bg-accent/70 hover:text-foreground"
             )}
           >
             <Icon className="h-4 w-4" />

@@ -38,23 +38,23 @@ export function DashboardSidebar({
   return (
     <aside
       className={cn(
-        "flex h-full flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground",
+        "flex h-full flex-col border-r border-sidebar-border/70 bg-sidebar text-sidebar-foreground",
         isCollapsed ? "w-[var(--sidebar-width-collapsed)]" : "w-[var(--sidebar-width)]",
         className
       )}
     >
       <div
         className={cn(
-          "flex h-16 items-center border-b border-sidebar-border",
+          "flex h-16 items-center border-b border-sidebar-border/70",
           isCollapsed ? "justify-center px-2" : "gap-3 px-4"
         )}
       >
-        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-sm">
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm">
           <Trophy className="h-4 w-4" />
         </div>
         {!isCollapsed && (
           <div className="min-w-0 flex-1">
-            <p className="truncate text-sm font-semibold tracking-tight">PLAYHUB</p>
+            <p className="truncate text-sm font-semibold tracking-[-0.02em]">PLAYHUB</p>
             <p className="truncate text-xs text-muted-foreground">
               {context.activeTenant?.tenant.name ?? "Player mode"}
             </p>
@@ -75,12 +75,12 @@ export function DashboardSidebar({
       </div>
 
       {isCollapsed && variant === "desktop" && (
-        <div className="hidden border-b border-sidebar-border p-2 lg:block">
+        <div className="hidden border-b border-sidebar-border/70 p-2 lg:block">
           <Button
             type="button"
             variant="ghost"
             size="icon"
-            className="h-8 w-8 w-full"
+            className="h-8 w-full"
             onClick={toggleCollapsed}
             aria-label="Expand sidebar"
           >
@@ -89,11 +89,11 @@ export function DashboardSidebar({
         </div>
       )}
 
-      <nav className="flex-1 space-y-5 overflow-y-auto p-3" aria-label="Main navigation">
+      <nav className="flex-1 space-y-6 overflow-y-auto p-3" aria-label="Main navigation">
         {sections.map((section) => (
           <div key={section.label}>
             {!isCollapsed && (
-              <p className="mb-2 px-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+              <p className="mb-2 px-2 text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
                 {section.label}
               </p>
             )}
@@ -116,10 +116,10 @@ export function DashboardSidebar({
                 );
 
                 const linkClass = cn(
-                  "flex w-full items-center gap-3 rounded-lg px-2.5 py-2 text-sm transition-colors focus-ring",
+                  "flex w-full items-center gap-3 rounded-lg px-2.5 py-2 text-sm font-medium transition-[background-color,color,box-shadow] duration-200 focus-ring",
                   isCollapsed && "justify-center px-2",
                   isActive
-                    ? "bg-sidebar-accent font-medium text-sidebar-accent-foreground"
+                    ? "bg-sidebar-accent text-sidebar-accent-foreground shadow-xs"
                     : "text-muted-foreground hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground",
                   item.disabled && "pointer-events-none opacity-50"
                 );

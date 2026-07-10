@@ -1,6 +1,6 @@
 "use client";
 
-import { Alert } from "@/components/ui/alert";
+import { StatusState } from "@/components/layout/status-state";
 
 export default function AcademiesError({
   error,
@@ -10,18 +10,11 @@ export default function AcademiesError({
   reset: () => void;
 }) {
   return (
-    <div className="space-y-4">
-      <Alert variant="destructive">
-        <p className="font-medium">Failed to load academies</p>
-        <p className="text-sm">{error.message}</p>
-      </Alert>
-      <button
-        type="button"
-        onClick={reset}
-        className="text-sm font-medium text-primary hover:underline"
-      >
-        Try again
-      </button>
-    </div>
+    <StatusState
+      tone="error"
+      title="Failed to load academies"
+      description={error.message}
+      action={{ label: "Try again", onClick: reset }}
+    />
   );
 }

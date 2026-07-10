@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { Alert } from "@/components/ui/alert";
-import { Button } from "@/components/ui/button";
+import { StatusState } from "@/components/layout/status-state";
 
 export default function SportsError({
   error,
@@ -16,11 +15,11 @@ export default function SportsError({
   }, [error]);
 
   return (
-    <div className="space-y-4">
-      <Alert variant="destructive">
-        Failed to load sports. {error.message || "Please try again."}
-      </Alert>
-      <Button onClick={reset}>Retry</Button>
-    </div>
+    <StatusState
+      tone="error"
+      title="Failed to load sports"
+      description={error.message || "Please try again."}
+      action={{ label: "Retry", onClick: reset }}
+    />
   );
 }

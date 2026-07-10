@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "motion/react";
 import type { AuthContext } from "@/lib/auth/session";
 import { DashboardSidebar } from "@/features/dashboard/components/dashboard-sidebar";
 import { DashboardTopNav } from "@/features/dashboard/components/dashboard-top-nav";
@@ -31,10 +32,10 @@ function ShellInner({
 
   return (
     <>
-      <div className="flex min-h-screen bg-muted/30">
+      <div className="flex min-h-screen bg-background">
         <div
           className={cn(
-            "hidden lg:fixed lg:inset-y-0 lg:z-40 lg:flex transition-[width] duration-200",
+            "hidden lg:fixed lg:inset-y-0 lg:z-40 lg:flex transition-[width] duration-300 ease-out",
             collapsed ? "lg:w-[var(--sidebar-width-collapsed)]" : "lg:w-[var(--sidebar-width)]"
           )}
         >
@@ -55,7 +56,7 @@ function ShellInner({
 
         <div
           className={cn(
-            "flex min-h-screen flex-1 flex-col transition-[padding] duration-200",
+            "flex min-h-screen flex-1 flex-col transition-[padding] duration-300 ease-out",
             collapsed ? "lg:pl-[var(--sidebar-width-collapsed)]" : "lg:pl-[var(--sidebar-width)]"
           )}
         >
@@ -66,9 +67,16 @@ function ShellInner({
             onMenuClick={() => setMobileOpen(true)}
             onSearchClick={() => setCommandOpen(true)}
           />
-          <main className="flex-1 p-4 md:p-6 lg:p-8">
-            <div className="mx-auto max-w-7xl">{children}</div>
-          </main>
+          <motion.main
+            id="main-content"
+            tabIndex={-1}
+            className="flex-1 px-4 py-6 outline-none md:px-6 lg:px-8 lg:py-8"
+            initial={{ opacity: 0, y: 4 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.18, ease: "easeOut" }}
+          >
+            <div className="mx-auto w-full max-w-[1440px]">{children}</div>
+          </motion.main>
         </div>
       </div>
 

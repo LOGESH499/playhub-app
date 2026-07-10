@@ -516,6 +516,33 @@ scripts/verify-module-15.sql
 
 ---
 
+## Cross-Cutting: Enterprise SaaS UI/UX Redesign ✅
+
+- [x] Implement semantic CSS variables and OKLCH design tokens in `src/app/globals.css`
+- [x] Preserve light, dark, and system theme support via `next-themes`
+- [x] Redesign shared Shadcn primitives: buttons, cards, inputs, forms, tables, badges, alerts, dialogs, command menu, and skeletons
+- [x] Redesign dashboard shell, sidebar, top navigation, breadcrumbs, command palette, and content spacing
+- [x] Add shared `StatusState` for empty, error, and success states
+- [x] Polish dashboard KPI cards, calendar, recent activity, platform admin navigation, auth layout, landing page, data tables, and sport cards
+- [x] Keep existing routes, APIs, server actions, database calls, authentication flows, and business logic unchanged
+- [x] Update README design system documentation
+- [x] Verify with `npm run typecheck`, `npm run lint`, and `npm run build`
+
+**Key paths:**
+```
+src/app/globals.css
+src/components/ui/
+src/components/layout/page-header.tsx
+src/components/layout/status-state.tsx
+src/components/layout/skip-link.tsx
+src/components/data-table/data-table.tsx
+src/features/dashboard/components/
+src/features/platform-admin/components/platform-sidebar.tsx
+README.md
+```
+
+---
+
 ## Module 16: Membership (Next)
 
 - [ ] Package purchase flow and credit deduction on booking

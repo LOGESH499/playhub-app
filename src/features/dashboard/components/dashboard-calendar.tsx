@@ -3,6 +3,7 @@ import { formatTimeRange } from "@/features/dashboard/lib/format";
 import type { CalendarEvent } from "@/features/dashboard/lib/types";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { StatusState } from "@/components/layout/status-state";
 import { cn } from "@/lib/utils";
 
 interface DashboardCalendarProps {
@@ -57,8 +58,8 @@ export function DashboardCalendar({ events }: DashboardCalendarProps) {
               <div
                 key={day.toISOString()}
                 className={cn(
-                  "rounded-lg border p-2",
-                  isToday && "border-primary bg-primary/5"
+                  "rounded-lg border border-border/70 bg-background/50 p-2",
+                  isToday && "border-primary/40 bg-primary/10"
                 )}
               >
                 <p className="text-[10px] uppercase text-muted-foreground">
@@ -81,15 +82,17 @@ export function DashboardCalendar({ events }: DashboardCalendarProps) {
         </div>
 
         {events.length === 0 ? (
-          <p className="py-6 text-center text-sm text-muted-foreground">
-            No upcoming bookings this week. Book a court to see your schedule.
-          </p>
+          <StatusState
+            title="No upcoming bookings"
+            description="Book a court to see this week's schedule here."
+            className="min-h-40 border-dashed shadow-none"
+          />
         ) : (
           <ul className="space-y-3">
             {events.slice(0, 6).map((event) => (
               <li
                 key={event.id}
-                className="flex items-center justify-between gap-3 rounded-lg border p-3"
+                className="interactive-list-item flex items-center justify-between gap-3 border border-border/70 bg-background/50 p-3"
               >
                 <div className="min-w-0">
                   <p className="truncate text-sm font-medium capitalize">

@@ -33,11 +33,11 @@ export function SportCard({ sport, canManage }: SportCardProps) {
             alt={sport.name}
             fill
             className="object-cover"
-            unoptimized
+            sizes="(max-width: 640px) 100vw, 320px"
           />
         </div>
       ) : (
-        <div className="flex h-32 items-center justify-center bg-gradient-to-br from-primary/10 to-primary/5">
+        <div className="flex h-32 items-center justify-center bg-muted/45">
           <SportIcon iconName={sport.icon_name} className="h-12 w-12 text-primary/60" />
         </div>
       )}

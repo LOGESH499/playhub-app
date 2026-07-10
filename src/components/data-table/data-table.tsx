@@ -12,7 +12,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ChevronDown, ChevronUp, ChevronsUpDown } from "lucide-react";
+import { ChevronDown, ChevronUp, ChevronsUpDown, Inbox } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -62,7 +62,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className={cn("space-y-4", className)}>
-      <div className="overflow-hidden rounded-xl border bg-card shadow-sm">
+      <div className="overflow-hidden rounded-xl border border-border/70 bg-card shadow-sm">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -72,7 +72,7 @@ export function DataTable<TData, TValue>({
                     {header.isPlaceholder ? null : header.column.getCanSort() ? (
                       <button
                         type="button"
-                        className="inline-flex items-center gap-1 hover:text-foreground"
+                        className="inline-flex items-center gap-1 rounded-md transition-colors hover:text-foreground focus-ring"
                         onClick={header.column.getToggleSortingHandler()}
                       >
                         {flexRender(
@@ -111,8 +111,13 @@ export function DataTable<TData, TValue>({
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
-                  {emptyMessage}
+                <TableCell colSpan={columns.length} className="h-40 text-center">
+                  <div className="mx-auto flex max-w-sm flex-col items-center justify-center gap-3 text-muted-foreground">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-border/70 bg-muted/40">
+                      <Inbox className="h-4 w-4" />
+                    </div>
+                    <p className="text-sm">{emptyMessage}</p>
+                  </div>
                 </TableCell>
               </TableRow>
             )}
@@ -130,7 +135,7 @@ export function DataTable<TData, TValue>({
           >
             Previous
           </Button>
-          <span className="text-sm text-muted-foreground">
+          <span className="px-2 text-sm text-muted-foreground">
             Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
           </span>
           <Button

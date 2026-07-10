@@ -37,8 +37,8 @@ export function DashboardTopNav({
   onSearchClick,
 }: DashboardTopNavProps) {
   return (
-    <header className="sticky top-0 z-30 border-b border-border/60 bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
-      <div className="flex h-14 items-center gap-3 px-4 lg:px-6">
+    <header className="sticky top-0 z-30 border-b border-border/70 bg-background/90 backdrop-blur-xl supports-[backdrop-filter]:bg-background/70">
+      <div className="flex h-16 items-center gap-3 px-4 lg:px-6">
         <Button
           variant="ghost"
           size="icon"
@@ -56,17 +56,17 @@ export function DashboardTopNav({
         <button
           type="button"
           onClick={onSearchClick}
-          className="relative hidden h-9 w-full max-w-sm items-center gap-2 rounded-lg border border-input bg-muted/40 px-3 text-sm text-muted-foreground transition-colors hover:bg-muted/60 md:flex"
+          className="relative hidden h-10 w-full max-w-md items-center gap-2 rounded-xl border border-input bg-background/70 px-3 text-sm text-muted-foreground shadow-xs transition-[background-color,border-color,box-shadow] hover:border-border hover:bg-muted/40 hover:shadow-sm md:flex"
           aria-label="Open command menu"
         >
           <Search className="h-4 w-4 shrink-0" />
           <span className="truncate">Search...</span>
-          <kbd className="pointer-events-none ml-auto hidden rounded border bg-background px-1.5 py-0.5 text-[10px] font-medium sm:inline-block">
+          <kbd className="pointer-events-none ml-auto hidden rounded-md border border-border/70 bg-muted/50 px-1.5 py-0.5 text-[10px] font-medium sm:inline-block">
             ⌘K
           </kbd>
         </button>
 
-        <div className="ml-auto flex items-center gap-1.5">
+        <div className="ml-auto flex items-center gap-2">
           <Button
             variant="outline"
             size="sm"
@@ -93,8 +93,8 @@ export function DashboardTopNav({
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="relative h-9 gap-2 px-2">
-                <Avatar className="h-8 w-8 ring-2 ring-border">
+          <Button variant="ghost" className="relative h-10 gap-2 rounded-xl px-2">
+                <Avatar className="h-8 w-8 ring-1 ring-border">
                   <AvatarImage
                     src={context.profile.avatar_url ?? undefined}
                     alt={context.profile.full_name}

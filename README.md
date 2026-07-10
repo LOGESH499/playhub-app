@@ -273,13 +273,16 @@ supabase db execute -f scripts/verify-module-15.sql
 
 ### Enterprise UI System
 
-Premium SaaS design layer (Linear / Stripe / Vercel inspired):
+PLAYHUB uses a premium enterprise SaaS design system inspired by Linear, Vercel, Stripe, GitHub, Notion, Raycast, and Clerk. The redesign is presentation-only: routes, database access, server actions, RPCs, and business logic stay unchanged.
 
-- **Design tokens** — OKLCH semantic colors, sidebar tokens, shadows, Geist typography
-- **Shell** — Collapsible sidebar, command menu, breadcrumbs, sticky blurred topbar
-- **Components** — Shadcn primitives, TanStack DataTable, Recharts, Sonner, cmdk
-- **Pages** — Unified `PageHeader`, card hover states, polished auth & platform layouts
-- **Modules styled** — Dashboard, Sports, Venues, Courts, Slots (no business logic changes)
+- **Tokens** — `src/app/globals.css` defines OKLCH semantic variables for background, foreground, surface, elevated surface, cards, popovers, borders, inputs, rings, status colors, sidebar, radius, and shadow scale.
+- **Themes** — Light, dark, and system themes are powered by `next-themes` and CSS variables. Components must use semantic Tailwind tokens (`bg-card`, `text-muted-foreground`, `border-border`, `text-success`) instead of hardcoded color families.
+- **Typography** — Geist is the product font. Headings use tight tracking, restrained weights, and generous line height for dense dashboard readability.
+- **Surfaces** — Cards, dialogs, tables, alerts, skeletons, command menu, auth panels, and platform/admin shells use rounded-xl corners, minimal borders, subtle shadows, and soft hover states.
+- **Navigation** — The dashboard shell includes a collapsible sidebar, sticky translucent top navigation, breadcrumbs, theme switcher, notifications, tenant switcher, and cmdk command palette.
+- **Data UX** — TanStack Table, shared `StatusState`, skeleton loading states, route error boundaries, Recharts panels, Sonner toasts, and semantic badges provide consistent empty, loading, error, success, and analytics states.
+- **Motion** — Motion is used only for a subtle shell-level content transition. Avoid flashy animation, neon effects, heavy gradients, or decorative admin-template styling.
+- **Accessibility** — Preserve Server Components by default, maintain skip links and focus rings, keep keyboard-accessible menus/dialogs, and retain responsive layouts across mobile, tablet, and desktop.
 
 ### Modules 5–7 — Migration verification
 

@@ -1,7 +1,6 @@
 "use client";
 
-import { Alert } from "@/components/ui/alert";
-import { Button } from "@/components/ui/button";
+import { StatusState } from "@/components/layout/status-state";
 
 export default function CourtsError({
   reset,
@@ -10,11 +9,11 @@ export default function CourtsError({
   reset: () => void;
 }) {
   return (
-    <div className="space-y-4">
-      <Alert variant="destructive">
-        Something went wrong loading courts. Please try again.
-      </Alert>
-      <Button onClick={reset}>Retry</Button>
-    </div>
+    <StatusState
+      tone="error"
+      title="Something went wrong loading courts"
+      description="Please try again."
+      action={{ label: "Retry", onClick: reset }}
+    />
   );
 }

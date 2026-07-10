@@ -33,11 +33,13 @@ export function StatCards({ stats }: StatCardsProps) {
             <TrendIcon trend={stat.trend} />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-semibold tracking-tight">{stat.value}</div>
+            <div className="text-2xl font-semibold tracking-[-0.04em] text-foreground">
+              {stat.value}
+            </div>
             {(stat.description || stat.change) && (
               <p
                 className={cn(
-                  "mt-1 text-xs text-muted-foreground",
+                  "mt-2 text-xs leading-5 text-muted-foreground",
                   stat.change && "text-success"
                 )}
               >
