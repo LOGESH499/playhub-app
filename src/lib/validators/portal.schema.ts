@@ -3,6 +3,9 @@ import { z } from "zod";
 export const portalPreferencesSchema = z.object({
   emailNotifications: z.boolean().default(true),
   bookingReminders: z.boolean().default(true),
+  academyReminders: z.boolean().default(true),
+  announcements: z.boolean().default(true),
+  maintenanceAlerts: z.boolean().default(true),
   marketingEmails: z.boolean().default(false),
 });
 
@@ -29,6 +32,9 @@ export function parsePortalPreferences(value: unknown): PortalPreferences {
   const defaults = {
     emailNotifications: true,
     bookingReminders: true,
+    academyReminders: true,
+    announcements: true,
+    maintenanceAlerts: true,
     marketingEmails: false,
   };
   if (!value || typeof value !== "object") return defaults;
@@ -36,6 +42,9 @@ export function parsePortalPreferences(value: unknown): PortalPreferences {
   return {
     emailNotifications: obj.emailNotifications !== false,
     bookingReminders: obj.bookingReminders !== false,
+    academyReminders: obj.academyReminders !== false,
+    announcements: obj.announcements !== false,
+    maintenanceAlerts: obj.maintenanceAlerts !== false,
     marketingEmails: Boolean(obj.marketingEmails),
   };
 }

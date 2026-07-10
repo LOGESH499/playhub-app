@@ -465,7 +465,31 @@ src/lib/validators/analytics.schema.ts
 
 ---
 
-## Module 14: Membership (Next)
+## Module 14: Notification Center ✅
+
+- [x] Migration `20260709000024_notification_center.sql`
+- [x] `dispatch_notification`, email queue, admin broadcasts
+- [x] Booking & academy reminder jobs
+- [x] Preferences, unread counter, history, realtime center
+- [x] Routes `/notifications`, `/notifications/preferences`, `/notifications/broadcasts`
+- [x] Verification script `scripts/verify-module-14.sql`
+
+**Files:**
+
+```
+src/features/notifications/
+  actions/notification-center.actions.ts
+  components/  — center list, filters, preferences, broadcasts, admin panel
+  hooks/use-notifications-realtime.ts
+  lib/queries.ts, types.ts
+src/lib/email/deliver.ts
+src/lib/validators/notification.schema.ts
+supabase/migrations/20260709000024_notification_center.sql
+```
+
+---
+
+## Module 15: Membership (Next)
 
 - [ ] Package purchase flow and credit deduction on booking
 

@@ -1815,6 +1815,84 @@ export type Database = {
         };
         Relationships: [];
       };
+      notification_emails: {
+        Row: {
+          id: string;
+          notification_id: string | null;
+          user_id: string;
+          tenant_id: string | null;
+          recipient_email: string;
+          subject: string;
+          body: string;
+          status: string;
+          error_message: string | null;
+          sent_at: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          notification_id?: string | null;
+          user_id: string;
+          tenant_id?: string | null;
+          recipient_email: string;
+          subject: string;
+          body: string;
+          status?: string;
+          error_message?: string | null;
+          sent_at?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          notification_id?: string | null;
+          user_id?: string;
+          tenant_id?: string | null;
+          recipient_email?: string;
+          subject?: string;
+          body?: string;
+          status?: string;
+          error_message?: string | null;
+          sent_at?: string | null;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
+      notification_broadcasts: {
+        Row: {
+          id: string;
+          tenant_id: string;
+          created_by: string;
+          kind: Database["public"]["Enums"]["notification_kind"];
+          title: string;
+          body: string | null;
+          target_audience: string;
+          recipients_count: number;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          tenant_id: string;
+          created_by: string;
+          kind?: Database["public"]["Enums"]["notification_kind"];
+          title: string;
+          body?: string | null;
+          target_audience?: string;
+          recipients_count?: number;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          tenant_id?: string;
+          created_by?: string;
+          kind?: Database["public"]["Enums"]["notification_kind"];
+          title?: string;
+          body?: string | null;
+          target_audience?: string;
+          recipients_count?: number;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
       user_favorites: {
         Row: {
           id: string;
@@ -2441,6 +2519,61 @@ export type Database = {
         };
         Returns: Json;
       };
+      dispatch_notification: {
+        Args: {
+          p_user_id: string;
+          p_tenant_id: string;
+          p_kind: string;
+          p_title: string;
+          p_body?: string | null;
+          p_data?: Json;
+          p_queue_email?: boolean;
+        };
+        Returns: string;
+      };
+      send_tenant_broadcast: {
+        Args: {
+          p_tenant_id: string;
+          p_kind: Database["public"]["Enums"]["notification_kind"];
+          p_title: string;
+          p_body?: string | null;
+          p_target_audience?: string;
+        };
+        Returns: Database["public"]["Tables"]["notification_broadcasts"]["Row"];
+      };
+      queue_academy_reminders: {
+        Args: {
+          p_hours_before?: number;
+        };
+        Returns: number;
+      };
+      queue_notification_email: {
+        Args: {
+          p_notification_id: string;
+          p_user_id: string;
+          p_tenant_id: string;
+          p_kind: string;
+          p_subject: string;
+          p_body: string;
+        };
+        Returns: string;
+      };
+      mark_notification_email_status: {
+        Args: {
+          p_email_id: string;
+          p_status: string;
+          p_error_message?: string | null;
+        };
+        Returns: Database["public"]["Tables"]["notification_emails"]["Row"];
+      };
+      user_wants_notification: {
+        Args: {
+          p_user_id: string;
+          p_kind: string;
+          p_channel?: string;
+        };
+        Returns: boolean;
+      };
       toggle_user_favorite: {
         Args: {
           p_entity_type: string;
@@ -2573,6 +2706,16 @@ export type Database = {
       payment_method: "cash" | "upi" | "card" | "offline";
       payment_entity_type: "booking" | "academy_fee" | "membership";
       refund_status: "requested" | "approved" | "rejected" | "processed";
+      notification_kind:
+        | "booking_confirmation"
+        | "booking_reminder"
+        | "booking_cancelled"
+        | "academy_reminder"
+        | "announcement"
+        | "maintenance"
+        | "broadcast"
+        | "payment"
+        | "system";
       waitlist_status: "waiting" | "notified" | "expired" | "fulfilled";
       attendance_status: "present" | "absent" | "late" | "excused";
       tenant_status: "active" | "suspended";

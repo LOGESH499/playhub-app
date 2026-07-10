@@ -61,18 +61,23 @@ export function NotificationsPanel({
       <PopoverContent align="end" className="w-80 p-0">
         <div className="flex items-center justify-between border-b px-4 py-3">
           <p className="text-sm font-semibold">Notifications</p>
-          {unreadCount > 0 && (
-            <Button
-              variant="ghost"
-              size="sm"
-              className="h-8 gap-1 text-xs"
-              disabled={isPending}
-              onClick={handleMarkAllRead}
-            >
-              <CheckCheck className="h-3.5 w-3.5" />
-              Mark all read
+          <div className="flex items-center gap-2">
+            {unreadCount > 0 && (
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-8 gap-1 text-xs"
+                disabled={isPending}
+                onClick={handleMarkAllRead}
+              >
+                <CheckCheck className="h-3.5 w-3.5" />
+                Mark all read
+              </Button>
+            )}
+            <Button variant="ghost" size="sm" className="h-8 text-xs" asChild>
+              <a href="/notifications">View all</a>
             </Button>
-          )}
+          </div>
         </div>
         {notifications.length === 0 ? (
           <p className="px-4 py-8 text-center text-sm text-muted-foreground">

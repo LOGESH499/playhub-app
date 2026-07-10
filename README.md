@@ -247,6 +247,18 @@ supabase db execute -f scripts/verify-module-12.sql
 supabase db execute -f scripts/verify-module-13.sql
 ```
 
+### Module 14 — Notification Center
+
+- Unified hub at `/notifications` with realtime updates and unread counter
+- Email queue with optional `NOTIFICATION_EMAIL_WEBHOOK` delivery
+- Booking & academy reminder jobs, admin broadcasts, maintenance alerts
+- Per-category notification preferences
+- Routes: `/notifications`, `/notifications/preferences`, `/notifications/broadcasts`
+
+```bash
+supabase db execute -f scripts/verify-module-14.sql
+```
+
 ### Enterprise UI System
 
 Premium SaaS design layer (Linear / Stripe / Vercel inspired):

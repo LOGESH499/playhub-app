@@ -54,6 +54,36 @@ export function PortalSettingsForm({ preferences }: PortalSettingsFormProps) {
         />
       </label>
       <label className="flex items-center justify-between gap-4 text-sm">
+        <span>Academy reminders</span>
+        <input
+          type="checkbox"
+          checked={prefs.academyReminders}
+          onChange={(e) =>
+            setPrefs((p) => ({ ...p, academyReminders: e.target.checked }))
+          }
+        />
+      </label>
+      <label className="flex items-center justify-between gap-4 text-sm">
+        <span>Announcements</span>
+        <input
+          type="checkbox"
+          checked={prefs.announcements}
+          onChange={(e) =>
+            setPrefs((p) => ({ ...p, announcements: e.target.checked }))
+          }
+        />
+      </label>
+      <label className="flex items-center justify-between gap-4 text-sm">
+        <span>Maintenance alerts</span>
+        <input
+          type="checkbox"
+          checked={prefs.maintenanceAlerts}
+          onChange={(e) =>
+            setPrefs((p) => ({ ...p, maintenanceAlerts: e.target.checked }))
+          }
+        />
+      </label>
+      <label className="flex items-center justify-between gap-4 text-sm">
         <span>Marketing emails</span>
         <input
           type="checkbox"

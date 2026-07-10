@@ -64,7 +64,7 @@ export function getDashboardNavigation(appRole: AppRole): NavSection[] {
         { title: "My bookings", href: "/portal/bookings", icon: Ticket },
         { title: "Academies", href: "/portal/academies", icon: GraduationCap },
         { title: "Membership", href: "/portal/membership", icon: Users },
-        { title: "Notifications", href: "/portal/notifications", icon: Bell },
+        { title: "Notifications", href: "/notifications", icon: Bell },
         { title: "Favorites", href: "/portal/favorites", icon: Heart },
         { title: "Reviews", href: "/portal/reviews", icon: Star },
         { title: "Invoices", href: "/portal/invoices", icon: FileText },
@@ -108,6 +108,11 @@ export function getDashboardNavigation(appRole: AppRole): NavSection[] {
           title: "Payments",
           href: "/payments",
           icon: CreditCard,
+        },
+        {
+          title: "Notifications",
+          href: "/notifications",
+          icon: Bell,
         },
         {
           title: "Members",

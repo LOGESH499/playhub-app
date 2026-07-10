@@ -33,13 +33,13 @@ All development follows [docs/project-rules.md](./docs/project-rules.md):
 [████████████████████] Module 11 Customer Portal                 ✅ VERIFIED
 [████████████████████] Module 12 Payments                          ✅ VERIFIED
 [████████████████████] Module 13 Enterprise Analytics              ✅ VERIFIED
-[                    ] Module 14 Membership
-[                    ] Module 15 Notifications
+[████████████████████] Module 14 Notification Center              ✅ VERIFIED
+[                    ] Module 15 Membership
 [                    ] Module 16 Admin Panel
 [                    ] Module 17 Deployment
 ```
 
-**Overall:** 13 / 17 modules verified (76%) — Module 14 next
+**Overall:** 14 / 17 modules verified (82%) — Module 15 next
 
 ---
 
@@ -231,30 +231,25 @@ Venue utilization, revenue, booking trends, peak hours, sports popularity, acade
 
 ---
 
-## Module 14: Membership
+## Module 14: Notification Center
+
+**Status:** ✅ Verified  
+**Depends on:** Modules 9, 10, 11
+
+Realtime notification center, email queue, booking & academy reminders, announcements, maintenance alerts, admin broadcasts, preferences, unread counter, and history.
+
+**Routes:** `/notifications`, `/notifications/preferences`, `/notifications/broadcasts`
+
+**Verification:** `scripts/verify-module-14.sql`
+
+---
+
+## Module 15: Membership
 
 **Status:** Planned  
 **Depends on:** Module 9
 
 Membership packages, user packages, credit deduction on booking.
-
----
-
-## Module 15: Notifications
-
-**Status:** Planned  
-**Depends on:** Module 9
-
-In-app notifications, Realtime delivery, booking confirmation email.
-
----
-
-## Module 15: Reports
-
-**Status:** Merged into Module 13  
-**Depends on:** Modules 9, 10, 12
-
-Enterprise analytics hub at `/reports` covers venue occupancy, revenue dashboards, and academy performance.
 
 ---
 
