@@ -279,10 +279,18 @@ PLAYHUB uses a premium enterprise SaaS design system inspired by Linear, Vercel,
 - **Themes** — Light, dark, and system themes are powered by `next-themes` and CSS variables. Components must use semantic Tailwind tokens (`bg-card`, `text-muted-foreground`, `border-border`, `text-success`) instead of hardcoded color families.
 - **Typography** — Geist is the product font. Headings use tight tracking, restrained weights, and generous line height for dense dashboard readability.
 - **Surfaces** — Cards, dialogs, tables, alerts, skeletons, command menu, auth panels, and platform/admin shells use rounded-xl corners, minimal borders, subtle shadows, and soft hover states.
+- **Brand** — `PlayhubLogo` provides a reusable premium monogram + wordmark across public, auth, onboarding, dashboard, and platform shells.
 - **Navigation** — The dashboard shell includes a collapsible sidebar, sticky translucent top navigation, breadcrumbs, theme switcher, notifications, tenant switcher, and cmdk command palette.
 - **Data UX** — TanStack Table, shared `StatusState`, skeleton loading states, route error boundaries, Recharts panels, Sonner toasts, and semantic badges provide consistent empty, loading, error, success, and analytics states.
 - **Motion** — Motion is used only for a subtle shell-level content transition. Avoid flashy animation, neon effects, heavy gradients, or decorative admin-template styling.
 - **Accessibility** — Preserve Server Components by default, maintain skip links and focus rings, keep keyboard-accessible menus/dialogs, and retain responsive layouts across mobile, tablet, and desktop.
+
+### Production Readiness Fixes
+
+- Repaired academy/payment migration dependency order so `sync_tenant_id_from_enrollment()` exists before triggers reference it.
+- Hardened enum migrations with idempotent `DO` guards to avoid duplicate type failures during partial reruns or remote pushes.
+- Confirmed the local reset command requires Docker Desktop on Windows; run `supabase db reset` after Docker is available.
+- Confirmed remote dry-run requires a linked Supabase project; run `supabase link --project-ref <ref>` before `supabase db push --dry-run`.
 
 ### Modules 5–7 — Migration verification
 

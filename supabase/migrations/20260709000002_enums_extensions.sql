@@ -2,90 +2,159 @@
 
 CREATE EXTENSION IF NOT EXISTS btree_gist;
 
--- Sport types for slot booking
-CREATE TYPE public.sport_type AS ENUM (
-  'football',
-  'cricket',
-  'cricket_nets',
-  'pickleball',
-  'badminton',
-  'tennis',
-  'squash',
-  'basketball',
-  'volleyball',
-  'swimming',
-  'running_track'
-);
+DO $$
+BEGIN
+  -- Sport types for slot booking
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type
+    WHERE typname = 'sport_type'
+      AND typnamespace = 'public'::regnamespace
+  ) THEN
+    CREATE TYPE public.sport_type AS ENUM (
+      'football',
+      'cricket',
+      'cricket_nets',
+      'pickleball',
+      'badminton',
+      'tennis',
+      'squash',
+      'basketball',
+      'volleyball',
+      'swimming',
+      'running_track'
+    );
+  END IF;
 
--- Academy program types
-CREATE TYPE public.academy_type AS ENUM (
-  'running_academy',
-  'football_academy',
-  'cricket_academy',
-  'tennis_academy',
-  'swimming_academy',
-  'badminton_academy'
-);
+  -- Academy program types
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type
+    WHERE typname = 'academy_type'
+      AND typnamespace = 'public'::regnamespace
+  ) THEN
+    CREATE TYPE public.academy_type AS ENUM (
+      'running_academy',
+      'football_academy',
+      'cricket_academy',
+      'tennis_academy',
+      'swimming_academy',
+      'badminton_academy'
+    );
+  END IF;
 
--- Tenant RBAC roles
-CREATE TYPE public.tenant_role AS ENUM (
-  'owner',
-  'admin',
-  'manager',
-  'staff',
-  'coach',
-  'member'
-);
+  -- Tenant RBAC roles
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type
+    WHERE typname = 'tenant_role'
+      AND typnamespace = 'public'::regnamespace
+  ) THEN
+    CREATE TYPE public.tenant_role AS ENUM (
+      'owner',
+      'admin',
+      'manager',
+      'staff',
+      'coach',
+      'member'
+    );
+  END IF;
 
-CREATE TYPE public.member_status AS ENUM (
-  'active',
-  'invited',
-  'suspended'
-);
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type
+    WHERE typname = 'member_status'
+      AND typnamespace = 'public'::regnamespace
+  ) THEN
+    CREATE TYPE public.member_status AS ENUM (
+      'active',
+      'invited',
+      'suspended'
+    );
+  END IF;
 
-CREATE TYPE public.tenant_status AS ENUM (
-  'active',
-  'suspended'
-);
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type
+    WHERE typname = 'tenant_status'
+      AND typnamespace = 'public'::regnamespace
+  ) THEN
+    CREATE TYPE public.tenant_status AS ENUM (
+      'active',
+      'suspended'
+    );
+  END IF;
 
-CREATE TYPE public.booking_status AS ENUM (
-  'pending',
-  'confirmed',
-  'cancelled',
-  'completed',
-  'no_show'
-);
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type
+    WHERE typname = 'booking_status'
+      AND typnamespace = 'public'::regnamespace
+  ) THEN
+    CREATE TYPE public.booking_status AS ENUM (
+      'pending',
+      'confirmed',
+      'cancelled',
+      'completed',
+      'no_show'
+    );
+  END IF;
 
-CREATE TYPE public.payment_status AS ENUM (
-  'unpaid',
-  'paid',
-  'refunded',
-  'partial'
-);
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type
+    WHERE typname = 'payment_status'
+      AND typnamespace = 'public'::regnamespace
+  ) THEN
+    CREATE TYPE public.payment_status AS ENUM (
+      'unpaid',
+      'paid',
+      'refunded',
+      'partial'
+    );
+  END IF;
 
-CREATE TYPE public.enrollment_status AS ENUM (
-  'pending',
-  'active',
-  'suspended',
-  'completed',
-  'cancelled'
-);
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type
+    WHERE typname = 'enrollment_status'
+      AND typnamespace = 'public'::regnamespace
+  ) THEN
+    CREATE TYPE public.enrollment_status AS ENUM (
+      'pending',
+      'active',
+      'suspended',
+      'completed',
+      'cancelled'
+    );
+  END IF;
 
-CREATE TYPE public.waitlist_status AS ENUM (
-  'waiting',
-  'notified',
-  'expired',
-  'fulfilled'
-);
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type
+    WHERE typname = 'waitlist_status'
+      AND typnamespace = 'public'::regnamespace
+  ) THEN
+    CREATE TYPE public.waitlist_status AS ENUM (
+      'waiting',
+      'notified',
+      'expired',
+      'fulfilled'
+    );
+  END IF;
 
-CREATE TYPE public.attendance_status AS ENUM (
-  'present',
-  'absent',
-  'late',
-  'excused'
-);
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type
+    WHERE typname = 'attendance_status'
+      AND typnamespace = 'public'::regnamespace
+  ) THEN
+    CREATE TYPE public.attendance_status AS ENUM (
+      'present',
+      'absent',
+      'late',
+      'excused'
+    );
+  END IF;
 
-CREATE TYPE public.discount_type AS ENUM (
-  'percentage',
-  'fixed'
-);
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type
+    WHERE typname = 'discount_type'
+      AND typnamespace = 'public'::regnamespace
+  ) THEN
+    CREATE TYPE public.discount_type AS ENUM (
+      'percentage',
+      'fixed'
+    );
+  END IF;
+END $$;

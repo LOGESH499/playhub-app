@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { Shield, Trophy } from "lucide-react";
+import { Shield } from "lucide-react";
 import { getAuthContext } from "@/lib/auth/session";
 import { canAccessPlatformAdmin } from "@/lib/auth/roles";
 import { SignOutButton } from "@/features/auth";
+import { PlayhubLogo } from "@/components/brand/playhub-logo";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -33,12 +34,7 @@ export default async function PlatformLayout({
     <div className="min-h-screen bg-muted/30">
       <header className="sticky top-0 z-30 border-b border-border/60 bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 lg:px-6">
-          <Link href="/" className="flex items-center gap-2.5 font-semibold tracking-tight">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-sm">
-              <Trophy className="h-4 w-4" />
-            </div>
-            PLAYHUB
-          </Link>
+          <PlayhubLogo size="sm" />
           <Badge variant="warning" className="gap-1.5">
             <Shield className="h-3.5 w-3.5" />
             Platform Admin

@@ -5,7 +5,7 @@ import {
   canManageOrganization,
 } from "@/lib/auth/roles";
 import type { ProgramListFilters } from "@/lib/validators/academy.schema";
-import { parseBatchSchedule, parseProgramImages } from "./parse";
+import { parseBatchSchedule } from "./parse";
 import type {
   AcademyStats,
   BatchCoachRow,

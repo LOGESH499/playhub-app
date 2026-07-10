@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronLeft, ChevronRight, Trophy } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { AuthContext } from "@/lib/auth/session";
 import { getDashboardNavigation } from "@/features/dashboard/lib/navigation";
 import { useSidebar } from "@/components/layout/sidebar-context";
+import { PlayhubLogoMark } from "@/components/brand/playhub-logo";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -49,9 +50,7 @@ export function DashboardSidebar({
           isCollapsed ? "justify-center px-2" : "gap-3 px-4"
         )}
       >
-        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm">
-          <Trophy className="h-4 w-4" />
-        </div>
+        <PlayhubLogoMark size="md" />
         {!isCollapsed && (
           <div className="min-w-0 flex-1">
             <p className="truncate text-sm font-semibold tracking-[-0.02em]">PLAYHUB</p>

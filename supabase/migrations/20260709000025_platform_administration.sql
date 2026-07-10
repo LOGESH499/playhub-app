@@ -1,12 +1,28 @@
 -- PLAYHUB Module 15: Platform administration
 
-CREATE TYPE public.subscription_tier AS ENUM ('free', 'pro', 'enterprise');
-CREATE TYPE public.subscription_status AS ENUM (
-  'active',
-  'trialing',
-  'cancelled',
-  'suspended'
-);
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type
+    WHERE typname = 'subscription_tier'
+      AND typnamespace = 'public'::regnamespace
+  ) THEN
+    CREATE TYPE public.subscription_tier AS ENUM ('free', 'pro', 'enterprise');
+  END IF;
+
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type
+    WHERE typname = 'subscription_status'
+      AND typnamespace = 'public'::regnamespace
+  ) THEN
+    CREATE TYPE public.subscription_status AS ENUM (
+      'active',
+      'trialing',
+      'cancelled',
+      'suspended'
+    );
+  END IF;
+END $$;
 
 CREATE TABLE IF NOT EXISTS public.tenant_subscriptions (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),

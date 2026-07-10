@@ -1,24 +1,45 @@
 -- PLAYHUB Module 12: Offline payments (no Stripe)
 
-CREATE TYPE public.payment_method AS ENUM (
-  'cash',
-  'upi',
-  'card',
-  'offline'
-);
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type
+    WHERE typname = 'payment_method'
+      AND typnamespace = 'public'::regnamespace
+  ) THEN
+    CREATE TYPE public.payment_method AS ENUM (
+      'cash',
+      'upi',
+      'card',
+      'offline'
+    );
+  END IF;
 
-CREATE TYPE public.payment_entity_type AS ENUM (
-  'booking',
-  'academy_fee',
-  'membership'
-);
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type
+    WHERE typname = 'payment_entity_type'
+      AND typnamespace = 'public'::regnamespace
+  ) THEN
+    CREATE TYPE public.payment_entity_type AS ENUM (
+      'booking',
+      'academy_fee',
+      'membership'
+    );
+  END IF;
 
-CREATE TYPE public.refund_status AS ENUM (
-  'requested',
-  'approved',
-  'rejected',
-  'processed'
-);
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type
+    WHERE typname = 'refund_status'
+      AND typnamespace = 'public'::regnamespace
+  ) THEN
+    CREATE TYPE public.refund_status AS ENUM (
+      'requested',
+      'approved',
+      'rejected',
+      'processed'
+    );
+  END IF;
+END $$;
 
 CREATE TABLE IF NOT EXISTS public.payment_transactions (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),

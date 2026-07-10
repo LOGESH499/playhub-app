@@ -1,5 +1,7 @@
 "use client";
 
+/* eslint-disable react-hooks/incompatible-library -- React Hook Form watch is required for dependent template fields. */
+
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";

@@ -16,7 +16,7 @@ const enrollmentStatuses = [
   "cancelled",
 ] as const;
 const attendanceStatuses = ["present", "absent", "late", "excused"] as const;
-const feeStatuses = ["pending", "paid", "overdue", "waived"] as const;
+export const FEE_STATUSES = ["pending", "paid", "overdue", "waived"] as const;
 
 export const batchScheduleSchema = z.object({
   days: z.array(z.enum(scheduleDays)).min(1, "Select at least one training day"),
@@ -175,7 +175,7 @@ export const ATTENDANCE_STATUS_LABELS: Record<
   excused: "Excused",
 };
 
-export const FEE_STATUS_LABELS: Record<(typeof feeStatuses)[number], string> = {
+export const FEE_STATUS_LABELS: Record<(typeof FEE_STATUSES)[number], string> = {
   pending: "Pending",
   paid: "Paid",
   overdue: "Overdue",

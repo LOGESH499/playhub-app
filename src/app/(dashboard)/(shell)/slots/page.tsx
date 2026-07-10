@@ -44,7 +44,7 @@ export default async function SlotsPage({ searchParams }: SlotsPageProps) {
 
   if (!context.activeTenant) redirect("/onboarding");
 
-  if (!canViewSlots(context.appRole)) redirect("/dashboard");
+  if (!canViewSlots()) redirect("/dashboard");
 
   const raw = await searchParams;
   const parsed = slotListFiltersSchema.safeParse({

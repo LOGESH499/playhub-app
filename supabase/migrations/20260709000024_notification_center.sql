@@ -1,16 +1,25 @@
 -- PLAYHUB Module 14: Notification Center
 
-CREATE TYPE public.notification_kind AS ENUM (
-  'booking_confirmation',
-  'booking_reminder',
-  'booking_cancelled',
-  'academy_reminder',
-  'announcement',
-  'maintenance',
-  'broadcast',
-  'payment',
-  'system'
-);
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_type
+    WHERE typname = 'notification_kind'
+      AND typnamespace = 'public'::regnamespace
+  ) THEN
+    CREATE TYPE public.notification_kind AS ENUM (
+      'booking_confirmation',
+      'booking_reminder',
+      'booking_cancelled',
+      'academy_reminder',
+      'announcement',
+      'maintenance',
+      'broadcast',
+      'payment',
+      'system'
+    );
+  END IF;
+END $$;
 
 CREATE TABLE IF NOT EXISTS public.notification_emails (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),

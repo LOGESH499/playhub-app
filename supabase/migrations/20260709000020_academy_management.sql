@@ -1,5 +1,19 @@
 -- PLAYHUB Module 10: Academy management enhancements
 
+-- ─── Tenant sync from enrollment ────────────────────────────────────────────
+
+CREATE OR REPLACE FUNCTION public.sync_tenant_id_from_enrollment()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  SELECT tenant_id INTO NEW.tenant_id
+  FROM public.enrollments
+  WHERE id = NEW.enrollment_id;
+  RETURN NEW;
+END;
+$$;
+
 -- ─── Sync tenant_id on batches from program ─────────────────────────────────
 
 DROP TRIGGER IF EXISTS batches_sync_tenant ON public.batches;
@@ -74,20 +88,6 @@ DROP TRIGGER IF EXISTS enrollment_progress_sync_tenant ON public.enrollment_prog
 CREATE TRIGGER enrollment_progress_sync_tenant
   BEFORE INSERT ON public.enrollment_progress
   FOR EACH ROW EXECUTE FUNCTION public.sync_tenant_id_from_enrollment();
-
--- ─── Tenant sync from enrollment ────────────────────────────────────────────
-
-CREATE OR REPLACE FUNCTION public.sync_tenant_id_from_enrollment()
-RETURNS TRIGGER
-LANGUAGE plpgsql
-AS $$
-BEGIN
-  SELECT tenant_id INTO NEW.tenant_id
-  FROM public.enrollments
-  WHERE id = NEW.enrollment_id;
-  RETURN NEW;
-END;
-$$;
 
 -- ─── Audit helper ───────────────────────────────────────────────────────────
 

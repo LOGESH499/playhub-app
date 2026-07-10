@@ -524,6 +524,7 @@ scripts/verify-module-15.sql
 - [x] Redesign dashboard shell, sidebar, top navigation, breadcrumbs, command palette, and content spacing
 - [x] Add shared `StatusState` for empty, error, and success states
 - [x] Polish dashboard KPI cards, calendar, recent activity, platform admin navigation, auth layout, landing page, data tables, and sport cards
+- [x] Replace trophy branding with reusable premium `PlayhubLogo`
 - [x] Keep existing routes, APIs, server actions, database calls, authentication flows, and business logic unchanged
 - [x] Update README design system documentation
 - [x] Verify with `npm run typecheck`, `npm run lint`, and `npm run build`
@@ -536,9 +537,32 @@ src/components/layout/page-header.tsx
 src/components/layout/status-state.tsx
 src/components/layout/skip-link.tsx
 src/components/data-table/data-table.tsx
+src/components/brand/playhub-logo.tsx
 src/features/dashboard/components/
 src/features/platform-admin/components/platform-sidebar.tsx
 README.md
+```
+
+---
+
+## Cross-Cutting: Migration Production Readiness ✅
+
+- [x] Fix Module 10 migration order so `sync_tenant_id_from_enrollment()` exists before dependent triggers
+- [x] Make base enum creation idempotent in `20260709000002_enums_extensions.sql`
+- [x] Make payment enums idempotent in `20260709000022_payments.sql`
+- [x] Make notification enum idempotent in `20260709000024_notification_center.sql`
+- [x] Make platform subscription enums idempotent in `20260709000025_platform_administration.sql`
+- [x] Confirm `supabase db reset` is blocked locally until Docker Desktop is available
+- [x] Confirm `supabase db push --dry-run` is blocked until the local Supabase project is linked
+- [x] Verify app with `npm run typecheck`, `npm run lint`, and `npm run build`
+
+**Key paths:**
+```
+supabase/migrations/20260709000002_enums_extensions.sql
+supabase/migrations/20260709000020_academy_management.sql
+supabase/migrations/20260709000022_payments.sql
+supabase/migrations/20260709000024_notification_center.sql
+supabase/migrations/20260709000025_platform_administration.sql
 ```
 
 ---

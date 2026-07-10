@@ -1,5 +1,7 @@
 "use client";
 
+/* eslint-disable react-hooks/incompatible-library -- TanStack Table intentionally returns non-memoizable table helpers. */
+
 import {
   type ColumnDef,
   type ColumnFiltersState,

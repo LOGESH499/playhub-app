@@ -43,6 +43,8 @@ All development follows [docs/project-rules.md](./docs/project-rules.md):
 
 **Cross-cutting UI/UX:** Enterprise SaaS redesign completed and verified — shared tokens, shell, primitives, states, charts, navigation, and docs.
 
+**Production readiness:** Migration dependency and enum idempotency repairs completed for academy, payments, notifications, and platform administration.
+
 ---
 
 ## Module 1: Authentication ✅
@@ -272,9 +274,25 @@ Premium SaaS design system inspired by Linear, Vercel, Stripe, GitHub, Notion, R
 - Premium dashboard shell with collapsible sidebar, sticky top navigation, breadcrumbs, cmdk search, notifications, tenant switcher, and theme controls
 - Shared loading, empty, error, and success state patterns
 - Consistent dashboard, platform admin, landing, auth, data table, chart, and sport-card presentation
+- Reusable premium PLAYHUB logo mark and wordmark across app shells
 - README design system documentation
 
 **Verification:** `npm run typecheck`, `npm run lint`, `npm run build`
+
+---
+
+## Cross-Cutting: Migration Production Readiness ✅
+
+**Status:** ✅ Repaired  
+**Scope:** Migration dependency order and idempotency only — no business logic or API workflow changes.
+
+**Repairs:**
+- Moved `sync_tenant_id_from_enrollment()` before `fee_records` and `enrollment_progress` triggers in Module 10
+- Made base enum creation idempotent in `20260709000002_enums_extensions.sql`
+- Made payment, notification, and platform administration enum creation idempotent
+- Verified application typecheck, lint, and build after repairs
+
+**Blocked local checks:** `supabase db reset` requires Docker Desktop; `supabase db push --dry-run` requires `supabase link`.
 
 ---
 

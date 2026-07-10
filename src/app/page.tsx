@@ -1,7 +1,8 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { Trophy, MapPin, Calendar, GraduationCap } from "lucide-react";
+import { MapPin, Calendar, GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { PlayhubLogo } from "@/components/brand/playhub-logo";
 import { getUser } from "@/lib/auth/session";
 import { siteConfig } from "@/lib/site";
 
@@ -17,12 +18,7 @@ export default async function HomePage() {
     <div className="flex min-h-screen flex-col bg-background">
       <header className="border-b border-border/70 bg-background/90 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
-          <Link href="/" className="flex items-center gap-2 text-lg font-semibold tracking-[-0.02em]">
-            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm">
-              <Trophy className="h-4 w-4" />
-            </div>
-            PLAYHUB
-          </Link>
+          <PlayhubLogo size="sm" />
           <nav className="flex items-center gap-3">
             {user ? (
               <>
