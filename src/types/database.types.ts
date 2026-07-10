@@ -259,6 +259,162 @@ export type Database = {
           },
         ];
       };
+      tenant_subscriptions: {
+        Row: {
+          id: string;
+          tenant_id: string;
+          tier: Database["public"]["Enums"]["subscription_tier"];
+          status: Database["public"]["Enums"]["subscription_status"];
+          seats_limit: number;
+          venues_limit: number;
+          billing_email: string | null;
+          trial_ends_at: string | null;
+          metadata: Json;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          tenant_id: string;
+          tier?: Database["public"]["Enums"]["subscription_tier"];
+          status?: Database["public"]["Enums"]["subscription_status"];
+          seats_limit?: number;
+          venues_limit?: number;
+          billing_email?: string | null;
+          trial_ends_at?: string | null;
+          metadata?: Json;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          tenant_id?: string;
+          tier?: Database["public"]["Enums"]["subscription_tier"];
+          status?: Database["public"]["Enums"]["subscription_status"];
+          seats_limit?: number;
+          venues_limit?: number;
+          billing_email?: string | null;
+          trial_ends_at?: string | null;
+          metadata?: Json;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      platform_settings: {
+        Row: {
+          key: string;
+          value: Json;
+          description: string | null;
+          updated_by: string | null;
+          updated_at: string;
+        };
+        Insert: {
+          key: string;
+          value?: Json;
+          description?: string | null;
+          updated_by?: string | null;
+          updated_at?: string;
+        };
+        Update: {
+          key?: string;
+          value?: Json;
+          description?: string | null;
+          updated_by?: string | null;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      feature_flags: {
+        Row: {
+          key: string;
+          enabled: boolean;
+          description: string | null;
+          rollout_percent: number;
+          metadata: Json;
+          updated_by: string | null;
+          updated_at: string;
+        };
+        Insert: {
+          key: string;
+          enabled?: boolean;
+          description?: string | null;
+          rollout_percent?: number;
+          metadata?: Json;
+          updated_by?: string | null;
+          updated_at?: string;
+        };
+        Update: {
+          key?: string;
+          enabled?: boolean;
+          description?: string | null;
+          rollout_percent?: number;
+          metadata?: Json;
+          updated_by?: string | null;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      support_tickets: {
+        Row: {
+          id: string;
+          tenant_id: string | null;
+          user_id: string | null;
+          subject: string;
+          body: string | null;
+          status: string;
+          priority: string;
+          assigned_to: string | null;
+          resolution_notes: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          tenant_id?: string | null;
+          user_id?: string | null;
+          subject: string;
+          body?: string | null;
+          status?: string;
+          priority?: string;
+          assigned_to?: string | null;
+          resolution_notes?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          tenant_id?: string | null;
+          user_id?: string | null;
+          subject?: string;
+          body?: string | null;
+          status?: string;
+          priority?: string;
+          assigned_to?: string | null;
+          resolution_notes?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      platform_health_snapshots: {
+        Row: {
+          id: string;
+          metrics: Json;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          metrics?: Json;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          metrics?: Json;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
       venues: {
         Row: {
           id: string;
@@ -2574,6 +2730,73 @@ export type Database = {
         };
         Returns: boolean;
       };
+      get_platform_analytics: {
+        Args: Record<PropertyKey, never>;
+        Returns: Json;
+      };
+      admin_update_tenant_status: {
+        Args: {
+          p_tenant_id: string;
+          p_status: Database["public"]["Enums"]["tenant_status"];
+        };
+        Returns: Database["public"]["Tables"]["tenants"]["Row"];
+      };
+      admin_update_tenant_subscription: {
+        Args: {
+          p_tenant_id: string;
+          p_tier?: Database["public"]["Enums"]["subscription_tier"];
+          p_status?: Database["public"]["Enums"]["subscription_status"];
+          p_seats_limit?: number;
+          p_venues_limit?: number;
+        };
+        Returns: Database["public"]["Tables"]["tenant_subscriptions"]["Row"];
+      };
+      admin_set_platform_admin: {
+        Args: {
+          p_user_id: string;
+          p_is_admin: boolean;
+        };
+        Returns: Database["public"]["Tables"]["profiles"]["Row"];
+      };
+      admin_upsert_platform_setting: {
+        Args: {
+          p_key: string;
+          p_value: Json;
+          p_description?: string | null;
+        };
+        Returns: Database["public"]["Tables"]["platform_settings"]["Row"];
+      };
+      admin_upsert_feature_flag: {
+        Args: {
+          p_key: string;
+          p_enabled: boolean;
+          p_description?: string | null;
+          p_rollout_percent?: number;
+        };
+        Returns: Database["public"]["Tables"]["feature_flags"]["Row"];
+      };
+      admin_update_support_ticket: {
+        Args: {
+          p_ticket_id: string;
+          p_status: string;
+          p_priority?: string | null;
+          p_resolution_notes?: string | null;
+        };
+        Returns: Database["public"]["Tables"]["support_tickets"]["Row"];
+      };
+      create_support_ticket: {
+        Args: {
+          p_subject: string;
+          p_body?: string | null;
+          p_tenant_id?: string | null;
+          p_priority?: string;
+        };
+        Returns: Database["public"]["Tables"]["support_tickets"]["Row"];
+      };
+      record_platform_health_snapshot: {
+        Args: Record<PropertyKey, never>;
+        Returns: Database["public"]["Tables"]["platform_health_snapshots"]["Row"];
+      };
       toggle_user_favorite: {
         Args: {
           p_entity_type: string;
@@ -2719,6 +2942,8 @@ export type Database = {
       waitlist_status: "waiting" | "notified" | "expired" | "fulfilled";
       attendance_status: "present" | "absent" | "late" | "excused";
       tenant_status: "active" | "suspended";
+      subscription_tier: "free" | "pro" | "enterprise";
+      subscription_status: "active" | "trialing" | "cancelled" | "suspended";
       discount_type: "percentage" | "fixed";
       slot_type:
         | "standard"

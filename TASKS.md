@@ -489,7 +489,34 @@ supabase/migrations/20260709000024_notification_center.sql
 
 ---
 
-## Module 15: Membership (Next)
+## Module 15: Platform Administration ✅
+
+- [x] Tenant management with suspend/activate
+- [x] Subscription management (free tier default)
+- [x] Platform analytics dashboard
+- [x] Audit log viewer
+- [x] Feature flags with rollout percent
+- [x] Global platform settings
+- [x] Cross-tenant user management
+- [x] Support ticket tools
+- [x] Platform health monitoring snapshots
+
+**Key paths:**
+```
+src/features/platform-admin/
+  actions/platform-admin.actions.ts
+  components/  — sidebar, stats, tenants, users, audit, flags, settings, support, monitoring
+  lib/queries.ts, types.ts
+src/lib/validators/platform.schema.ts
+supabase/migrations/20260709000025_platform_administration.sql
+scripts/verify-module-15.sql
+```
+
+**Routes:** `/platform`, `/platform/tenants`, `/platform/subscriptions`, `/platform/users`, `/platform/audit`, `/platform/feature-flags`, `/platform/settings`, `/platform/support`, `/platform/monitoring`
+
+---
+
+## Module 16: Membership (Next)
 
 - [ ] Package purchase flow and credit deduction on booking
 

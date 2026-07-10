@@ -259,6 +259,18 @@ supabase db execute -f scripts/verify-module-13.sql
 supabase db execute -f scripts/verify-module-14.sql
 ```
 
+### Module 15 — Platform Administration
+
+- Platform admin hub at `/platform` with analytics overview
+- Tenant management, subscription controls (free/pro/enterprise), suspend/activate
+- Cross-tenant user management and platform-admin role assignment
+- Audit logs, feature flags, global settings, support tickets, health monitoring
+- Routes: `/platform/tenants`, `/platform/subscriptions`, `/platform/users`, `/platform/audit`, `/platform/feature-flags`, `/platform/settings`, `/platform/support`, `/platform/monitoring`
+
+```bash
+supabase db execute -f scripts/verify-module-15.sql
+```
+
 ### Enterprise UI System
 
 Premium SaaS design layer (Linear / Stripe / Vercel inspired):

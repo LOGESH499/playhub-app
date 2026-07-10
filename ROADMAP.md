@@ -34,12 +34,12 @@ All development follows [docs/project-rules.md](./docs/project-rules.md):
 [████████████████████] Module 12 Payments                          ✅ VERIFIED
 [████████████████████] Module 13 Enterprise Analytics              ✅ VERIFIED
 [████████████████████] Module 14 Notification Center              ✅ VERIFIED
-[                    ] Module 15 Membership
-[                    ] Module 16 Admin Panel
+[████████████████████] Module 15 Platform Administration         ✅ VERIFIED
+[                    ] Module 16 Membership
 [                    ] Module 17 Deployment
 ```
 
-**Overall:** 14 / 17 modules verified (82%) — Module 15 next
+**Overall:** 15 / 17 modules verified (88%) — Module 16 next
 
 ---
 
@@ -244,21 +244,25 @@ Realtime notification center, email queue, booking & academy reminders, announce
 
 ---
 
-## Module 15: Membership
+## Module 15: Platform Administration
+
+**Status:** ✅ Verified  
+**Depends on:** Modules 2, 9, 14
+
+Tenant management, subscription management (free mode), platform analytics, audit logs, feature flags, global settings, user management, support tools, and platform monitoring.
+
+**Routes:** `/platform`, `/platform/tenants`, `/platform/subscriptions`, `/platform/users`, `/platform/audit`, `/platform/feature-flags`, `/platform/settings`, `/platform/support`, `/platform/monitoring`
+
+**Verification:** `scripts/verify-module-15.sql`
+
+---
+
+## Module 16: Membership
 
 **Status:** Planned  
 **Depends on:** Module 9
 
 Membership packages, user packages, credit deduction on booking.
-
----
-
-## Module 16: Admin Panel
-
-**Status:** Planned  
-**Depends on:** Module 2
-
-Platform super-admin: tenants, sport templates, audit logs.
 
 ---
 
